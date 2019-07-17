@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Создание заявки</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="css/w3.css">
+</head>
+<body>
+    <form id="Form" name="Form" class="w3-container">
+        <label for="ParticipantFullName">Фамилия, имя участника или название коллектива *</label>
+        <input required class="w3-input w3-border w3-animate-input w3-round" id="ParticipantFullName" name="ParticipantFullName" type="text" />
+        <label for="City">Организация и город, которую представляет конкурсант *</label>
+        <input required class="w3-input w3-border w3-animate-input w3-round" id="City" name="City" type="text" />
+        <label for="ParticipantPhoneNumber">Мобильный номер телефона участника (данные от +14 лет, или представителя. Пример, +7 985 007 23 33) *</label>
+        <input required class="w3-input w3-border w3-animate-input w3-round" id="ParticipantPhoneNumber" name="ParticipantPhoneNumber" type="tel" />
+        <label for="ParticipantEmail">Адрес электронной почты участника</label>
+        <input required class="w3-input w3-border w3-animate-input w3-round" id="ParticipantEmail" name="ParticipantEmail" type="email" />
+        <div id="Teacher" name="Teacher">
+            <label for="FullName">Фамилия, имя преподавателя*</label>
+            <input required class="w3-input w3-border w3-animate-input w3-round" id="FullName" name="FullName" type="text" />
+            <label for="PhoneNumber">Мобильный номер педагога</label>
+            <input required class="w3-input w3-border w3-animate-input w3-round" id="PhoneNumber" name="PhoneNumber" type="tel" />
+            <label for="Email">Адрес электронной почты педагога</label>
+            <input required class="w3-input w3-border w3-animate-input w3-round" id="Email" name="Email" type="email" />
+        </div>
+        <input class="w3-button w3-margin w3-blue" type="button" id="btnAddContest" value="Добавить участие" onclick="addContest()" />
+        <div id="Contests" name="Contests">
+        </div>
+
+        <input class="w3-button w3-green w3-right w3-margin" type="button" id="btnAddContest" value="Отправить заявку" onclick="sendApplication(this.form)" />
+    </form>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            async: false
+        });
+
+        let contestId = 0;
+        let baseUrl = 'http://localhost:62837/';
+
+        addAgeCategory();
+        addCompetition();
+        addTeacher();
+        addContest();
+
+
+        function sendApplication(form) {
+            var formData = {
+                Contests: [],
+                Teacher: {}
+            };
+            $(form).find("input[name]").each(function (index, node) {
+                formData[node.name] = node.value;
+            });
+
+            $(form).find("select[name='AgeCategoryId']").each(function (index, node) {
+                formData[node.name] = node.value;
+            });
+
+            $(form).find("select[name='CompetitionId']").each(function (index, node) {
+                formData[node.name] = node.value;
+            });
+
+
+            $(form).find("div[name='Teacher']").each(function (index, node) {
+                var temp = {};
+                $(node).find("select[name]").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+
+                $(node).find("input[name]").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+
+                formData.Teacher = temp;
+            });
+
+            $(form).find("div[name='Contest']").each(function (index, node) {
+                var temp = { NominationAdditionalFieldValues: [] };
+                $(node).find("select[name]").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+                $(node).find("input[name='NominationId']").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+                $(node).find("input[name='SubnominationId']").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+
+                $(node).find("input[name='Composer']").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+
+                $(node).find("input[name='Composition']").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+
+                $(node).find("input[name='PeopleAmount']").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+
+                $(node).find("input[name='AdditionalInformation']").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+
+                $(node).find("input[name='ApproximateTime']").each(function (num, pnode) {
+                    temp[pnode.name] = pnode.value;
+                });
+
+                $(node).find("div[name='AdditionalFields']").each(function (num, pnode) {
+                    $(pnode).find("input[name]").each(function (nnum, ppnode) {
+                        var l = { NominationAdditionalFieldId: ppnode.name.slice(-1), Value: ppnode.value };
+                        temp.NominationAdditionalFieldValues.push(l);
+                    });
+                });
+                formData.Contests.push(temp);
+            });
+
+            console.log(formData);
+
+            $.ajax({
+                type: "POST",
+                url: baseUrl + "api/default/PostApplication",
+                data: JSON.stringify(formData),
+                contentType: "application/json; charset=utf-8"
+            });
+
+            alert("Заявка отправлена :)");
+        }
+
+        function changeSubnomination(caller) {
+            var node = document.getElementById(caller).parentElement;
+            var ch = $(node).children("select[name='SubnominationId']").first();
+            if (ch == null) {
+
+            } else {
+                $(node).children().remove("select[name = 'SubnominationId']");
+            }
+
+            var ch2 = $(node).children("div[name='AdditionalFields']").first();
+            if (ch == null) {
+
+            } else {
+                $(node).children().remove("div[name = 'AdditionalFields']");
+            }
+
+
+
+            var e = document.getElementById(caller);
+            var x = getSubnominations(e.options[e.selectedIndex].value);
+            if (x !== '') {
+                addElement("contest-" + caller.slice(-1), 'select', 'subnomination-' + caller.slice(-1), 'SubnominationId', x, "w3-select");
+            }
+
+            var ch2 = $(node).children("input[name='additionalField-*']").first();
+            if (ch2 == null) {
+
+            } else {
+                $(node).children().remove("input[name = 'additionalField-*']");
+            }
+
+            var html3 = getNominationAdditionalFields(e.options[e.selectedIndex].value);
+
+            if (html3.length > 1) {
+                addElement('contest-' + caller.slice(-1), 'div', 'additionalFields-' + contestId, 'AdditionalFields', html3);
+            }
+        };
+
+
+        function addElement(parentId, elementTag, elementId, elementName, html, cssClass) {
+            var p = document.getElementById(parentId);
+            var newElement = document.createElement(elementTag);
+            newElement.setAttribute('id', elementId);
+            newElement.setAttribute('name', elementName);
+            newElement.setAttribute('class', cssClass);
+            newElement.innerHTML = html;
+            p.appendChild(newElement);
+        }
+
+        function addElementAtBeginning(parentId, elementTag, elementId, elementName, html, cssClass) {
+            var p = document.getElementById(parentId);
+            var newElement = document.createElement(elementTag);
+            newElement.setAttribute('id', elementId);
+            newElement.setAttribute('name', elementName);
+            newElement.setAttribute('class', cssClass);
+            newElement.innerHTML = html;
+            p.prepend(newElement);
+        }
+
+        function addTeacher() {
+            addElementAtBeginning('Teacher', 'select', 'TeacherTypeId', 'TeacherTypeId', getTeacherTypes(), "w3-input");
+        }
+
+        function addAgeCategory() {
+            var html = '';
+            addElementAtBeginning('Form', 'select', 'AgeCategoryId', 'AgeCategoryId', getAgeCategories(), "w3-select");
+            addElementAtBeginning('Form', 'label', null, null, 'Возрастная категория');
+        }
+
+        function addCompetition() {
+            var html = '';
+
+            addElementAtBeginning('Form', 'select', 'CompetitionId', 'CompetitionId', getCompetitions(), "w3-select");
+            addElementAtBeginning('Form', 'label', null, null, 'Место проведения');
+        }
+
+        function addContest() {
+            var html = '';
+            html = '<label for="NominationId">Номинация</label>' +
+                '<select class="w3-select w3-round" id="Nomination-' + contestId + '" name="NominationId" ' + 'onchange=' + "changeSubnomination(" + "this.id" + ")>" + getNominations() + '</select>' +
+                '<label for="Composer">Автор композиции</label>' +
+                '<input required class="w3-input w3-border w3-animate-input w3-round" id="Composer-' + contestId + '" name="Composer" type="text" />' +
+                '<label for="Composition">Название композиции</label>' +
+                '<input required class="w3-input w3-border w3-animate-input w3-round" id="Composition-' + contestId + '" name="Composition" type="text" />' +
+                '<label for="PeopleAmount">Количество участников</label>' +
+                '<input required class="w3-input w3-border w3-animate-input w3-round w3-border-bottom" id="PeopleAmount-"' + contestId + ' name="PeopleAmount" type="number"  />' +
+                '<label for="ApproximateTime">Примерное время выступления (в минутах)</label>' +
+                '<input required class="w3-input w3-border w3-animate-input w3-round w3-border-bottom" id="ApproximateTime-"' + contestId + ' name="ApproximateTime" type="number"  />' +
+                '<label for="AdditionalInformation">Дополнительная информация</label>' +
+                '<input class="w3-input w3-border w3-animate-input w3-round w3-border-bottom" id="AdditionalInformation-"' + contestId + ' name="AdditionalInformation" type="text" />' +
+                '<input class="w3-button w3-margin-top w3-margin-bottom w3-red" type="button" id="btnRemoveContest" value="Убрать участие" onclick="removeContest(' + contestId + ') " />';
+            addElement('Contests', 'div', 'contest-' + contestId, 'Contest', html, "w3-panel w3-light-grey w3-round-xlarge w3-container w3-padding");
+            changeSubnomination('Nomination-' + contestId);
+
+            contestId++;
+        }
+
+        function removeContest(id) {
+            var elem = document.getElementById("contest-" + id);
+            return elem.parentNode.removeChild(elem)
+        }
+
+        function getTeacherTypes() {
+            var url = baseUrl + "api/default/GetTeacherTypes";
+            var items = "";
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    items += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+            });
+            return items;
+        }
+
+        function getAgeCategories() {
+            var url = baseUrl + "api/default/GetAgeCategories";
+            var items = "";
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    items += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+            });
+            return items;
+        }
+
+        function getCompetitions() {
+            var url = baseUrl + "api/default/GetCompetitions";
+            var items = "";
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    date = new Date(data[i].date);
+                    items += "<option value='" + data[i].id + "'>" + data[i].city + " " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear() + "</option>";
+                }
+            });
+            return items;
+        }
+
+        function getNominations() {
+            var url = baseUrl + "api/default/GetNominations";
+            var items = "";
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    items += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+            });
+            return items;
+        }
+
+        function getSubnominations(nominationId) {
+            var url = baseUrl + "api/default/GetSubnominations/" + nominationId;
+            var items = "";
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    items += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+            });
+            return items;
+        }
+
+        function getNominationAdditionalFields(nominationId) {
+            var url = baseUrl + "api/default/GetNominationAdditionalFields/" + nominationId;
+            var items = "";
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    items += '<label for="additionalField-' + data[i].id + '">' + data[i].name + '</label>';
+                    items += '<input class="w3-input w3-border w3-animate-input w3-round w3-border-bottom" name="additionalField-' + data[i].id + '" />';
+                }
+            });
+            return items;
+        }
+    </script>
+</body>
+</html>

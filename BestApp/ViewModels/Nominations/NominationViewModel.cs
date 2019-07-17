@@ -1,0 +1,103 @@
+﻿using BestApp.Data;
+using BestApp.Services.Navigation;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using Microsoft.EntityFrameworkCore;
+using Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace BestApp.ViewModels.Nominations
+{
+    public class NominationViewModel : ViewModelBase
+    {
+        private readonly IFrameNavigationService _navigator;
+        private readonly BestDbContext _context;
+        private Nomination _nomination;
+
+        public Nomination Nomination
+        {
+            get
+            {
+                return _nomination;
+            }
+            set
+            {
+                _nomination = value;
+                RaisePropertyChanged("Nomination");
+            }
+        }
+
+        public ICommand SaveCommand { get; private set; }
+        public ICommand UpdateCommand { get; private set; }
+        public ICommand NewNominationAdditionalFieldCommand { get; private set; }
+
+
+        public NominationViewModel(IFrameNavigationService navigator, BestDbContext context)
+        {
+            _navigator = navigator;
+            _context = context;
+
+            SaveCommand = new RelayCommand(Save);
+            UpdateCommand = new RelayCommand(Update);
+            NewNominationAdditionalFieldCommand = new RelayCommand(NewNominationAdditionalField);
+
+            //_context.NominationAdditionalFields.Load();
+            //_context.Subnominations.Load();
+
+
+            
+
+            if(_navigator.Parameter != null && _navigator.Parameter is Nomination)
+            {
+                Nomination = _navigator.Parameter as Nomination;
+
+                if(Nomination.NominationAdditionalFields == null)
+                {
+                    Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
+                }
+
+                if(Nomination.Subnominations == null)
+                {
+                    Nomination.Subnominations = new ObservableCollection<Subnomination>();
+                }
+            }
+            else
+            {
+                Nomination = new Nomination();
+                Nomination.Subnominations = new ObservableCollection<Subnomination>();
+                Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
+            }
+
+
+
+
+            //NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>(_context.NominationAdditionalFields.Local);
+            //Subnominations = new ObservableCollection<Subnomination>(_context.Subnominations.Local);
+        }
+
+        private void NewNominationAdditionalField()
+        {
+            Nomination.NominationAdditionalFields.Add(new NominationAdditionalField());
+        }
+
+        private void Save()
+        {
+            _context.Nominations.Add(Nomination);
+
+            _context.SaveChanges();
+        }
+
+        private void Update()
+        {
+            _context.Nominations.Update(Nomination);
+
+            _context.SaveChanges();
+        }
+    }
+}

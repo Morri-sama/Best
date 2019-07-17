@@ -1,0 +1,30 @@
+﻿<Page x:Class="BestApp.Views.Competitions.CompetitionsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BestApp.Views.Competitions"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Конкурсы"
+      DataContext="{Binding Path=CompetitionsViewModel, Source={StaticResource Locator}}">
+
+    <StackPanel>
+        <ListView ItemsSource="{Binding Path=Competitions}"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Stretch" 
+                  Margin="10,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding City}" Header="Город"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Date}" Header="Дата и время"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Новый конкурс" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"                 
+                Command="{Binding NewCompetitionCommand}" 
+                Margin="10,10"/>
+    </StackPanel>
+</Page>
