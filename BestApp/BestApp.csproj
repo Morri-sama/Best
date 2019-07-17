@@ -303,9 +303,9 @@
     </ApplicationDefinition>
     <Compile Include="Data\BestDbContext.cs" />
     <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Reports\Diploma\DiplomaViewModel.cs" />
     <Compile Include="Services\Navigation\FrameNavigationService.cs" />
     <Compile Include="Services\Navigation\IFrameNavigationService.cs" />
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModels\Applications\ApplicationsViewModel.cs" />
     <Compile Include="ViewModels\Competitions\CompetitionsViewModel.cs" />
     <Compile Include="ViewModels\Competitions\CompetitionViewModel.cs" />
@@ -340,16 +340,8 @@
     <Compile Include="Views\Reporting\ReportViewerPage.xaml.cs">
       <DependentUpon>ReportViewerPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Applications\ApplicationsPage.xaml">
@@ -403,7 +395,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Diploma\Diploma.rdlc" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\BestApp.Reports.Diploma.DiplomaViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -413,25 +407,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{d39eaf92-dfb2-4ab2-9fb2-32fb6e01a498}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\menuicon.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

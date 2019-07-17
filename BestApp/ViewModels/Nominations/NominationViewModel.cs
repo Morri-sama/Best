@@ -53,28 +53,28 @@ namespace BestApp.ViewModels.Nominations
 
             
 
-            if(_navigator.Parameter != null && _navigator.Parameter is Nomination)
-            {
-                Nomination = _navigator.Parameter as Nomination;
+            //if(_navigator.Parameter != null && _navigator.Parameter is Nomination)
+            //{
+            //    Nomination = _navigator.Parameter as Nomination;
 
-                if(Nomination.NominationAdditionalFields == null)
-                {
-                    Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
-                }
+            //    if(Nomination.NominationAdditionalFields == null)
+            //    {
+            //        Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
+            //    }
 
-                if(Nomination.Subnominations == null)
-                {
-                    Nomination.Subnominations = new ObservableCollection<Subnomination>();
-                }
-            }
-            else
-            {
-                Nomination = new Nomination();
-                Nomination.Subnominations = new ObservableCollection<Subnomination>();
-                Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
-            }
+            //    if(Nomination.Subnominations == null)
+            //    {
+            //        Nomination.Subnominations = new ObservableCollection<Subnomination>();
+            //    }
+            //}
+            //else
+            //{
+                //Nomination = new Nomination();
+                //Nomination.Subnominations = new ObservableCollection<Subnomination>();
+                //Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
+            //}
 
-
+            MessengerInstance.Register<Nomination>(this, nomination => SetNomination(nomination));
 
 
             //NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>(_context.NominationAdditionalFields.Local);
@@ -98,6 +98,11 @@ namespace BestApp.ViewModels.Nominations
             _context.Nominations.Update(Nomination);
 
             _context.SaveChanges();
+        }
+
+        private void SetNomination(Nomination nomination)
+        {
+            Nomination = nomination;
         }
     }
 }

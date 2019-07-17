@@ -11,7 +11,7 @@
 
     <Grid>
         <WindowsFormsHost HorizontalAlignment="Left" Height="365" Margin="64,37,0,0" VerticalAlignment="Top" Width="672">
-            <rdlc:ReportViewer></rdlc:ReportViewer>
+            <rdlc:ReportViewer x:Name="_reportViewer"></rdlc:ReportViewer>
         </WindowsFormsHost>
 
     </Grid>

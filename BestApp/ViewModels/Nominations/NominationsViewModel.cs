@@ -48,6 +48,7 @@ namespace BestApp.ViewModels.Nominations
 
         private void OpenNomination(Nomination nomination)
         {
+            MessengerInstance.Send(nomination);
             _navigator.NavigateTo("NewNomination", nomination);
         }
 

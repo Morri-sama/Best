@@ -1,4 +1,5 @@
-﻿using Microsoft.Reporting.WinForms;
+﻿using BestApp.Reports.Diploma;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,29 +27,28 @@ namespace BestApp.Views.Reporting
         {
             InitializeComponent();
 
-            //DiplomaData diplomaData = new DiplomaData()
-            //{
-            //    City = "Хуй",
-            //    DiplomaNumber = 121212,
-            //    Grade = "asasa",
-            //    Nomination = "asasa",
-            //    Participant = "adada",
-            //    Teacher = "asasa"
-            //};
+            _reportViewer.ShowContextMenu = false;
 
-            //List<DiplomaData> diplomaDatas = new List<DiplomaData>();
-            //diplomaDatas.Add(diplomaData);
+            DiplomaViewModel diplomaViewModel = new DiplomaViewModel()
+            {
+                City = "Москва",
+                ParticipantFullName = "Хуесос Геннадьевич",
+                TeacherName = "Пидарас Пидарасов"
+            };
 
-            //ReportDataSource reportDataSource1 = new ReportDataSource();
-            //reportDataSource1.Name = "DataSet";
+            List<DiplomaViewModel> diplomaDatas = new List<DiplomaViewModel>();
+            diplomaDatas.Add(diplomaViewModel);
 
-            
-            //_reportViewer.LocalReport.DataSources.Add(reportDataSource1);
+            ReportDataSource reportDataSource1 = new ReportDataSource();
+            reportDataSource1.Name = "DataSetMain";
 
-            //_reportViewer.LocalReport.ReportEmbeddedResource = "BestApp.Reports.Diploma.Diploma.rdlc";
-            //_reportViewer.LocalReport.DataSources[0].Value = diplomaDatas;
 
-            //_reportViewer.RefreshReport();
+            _reportViewer.LocalReport.DataSources.Add(reportDataSource1);
+
+            _reportViewer.LocalReport.ReportEmbeddedResource = "BestApp.Reports.Diploma.Diploma.rdlc";
+            _reportViewer.LocalReport.DataSources[0].Value = diplomaDatas;
+
+            _reportViewer.RefreshReport();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

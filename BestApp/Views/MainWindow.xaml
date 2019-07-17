@@ -47,7 +47,7 @@
                         Width="200"
                         Height="Auto">
             <Border Height="100" HorizontalAlignment="Stretch" Background="{DynamicResource SecondaryAccentBrush}">
-                    <Image Source="/BestApp;component/Assets/logo.png" MouseDown="Image_MouseDown" />
+                <Image Source="/BestApp;component/Assets/menuicon.jpg" MouseDown="Image_MouseDown" Stretch="UniformToFill"/>
                 </Border>
                 <ListView ItemsSource="{Binding MenuItems}">
                     <ListView.ItemTemplate>
