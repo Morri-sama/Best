@@ -25,6 +25,12 @@ namespace BestApp.ViewModels.Applications
 
             Competitions = _context.Competitions.Where(c => c.IsClosed == false).OrderBy(o => o.Date).ToList();
 
+            Printers = new List<string>();
+            foreach(string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            {
+                Printers.Add(printer);
+            }
+
             DisplayApplicationsCommand = new RelayCommand<Competition>(DisplayApplications);
             DisplayReportCommand = new RelayCommand<Contest>(DisplayReport);
         }
@@ -35,6 +41,10 @@ namespace BestApp.ViewModels.Applications
         private ObservableCollection<Contest> _contests;
         private IList<Competition> _competitions;
         private Contest _selectedContest;
+
+
+        public List<string> Printers { get; set; }
+
 
         public IList<Competition> Competitions
         {
@@ -81,6 +91,8 @@ namespace BestApp.ViewModels.Applications
         {
             Contests = new ObservableCollection<Contest>(_context.Contests.Include(a => a.Application).Where(c => c.Application.Competition.Id == competition.Id));
         }
+
+        
 
         private void DisplayReport(Contest contest)
         {

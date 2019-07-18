@@ -36,22 +36,26 @@ namespace BestApp.ViewModels.Nominations
         public ICommand SaveCommand { get; private set; }
         public ICommand UpdateCommand { get; private set; }
         public ICommand NewNominationAdditionalFieldCommand { get; private set; }
+        public ICommand AddSubnominationCommand { get; private set; }
 
 
         public NominationViewModel(IFrameNavigationService navigator, BestDbContext context)
         {
+            MessengerInstance.Register<Nomination>(this, nomination => SetNomination(nomination));
+
             _navigator = navigator;
             _context = context;
 
             SaveCommand = new RelayCommand(Save);
             UpdateCommand = new RelayCommand(Update);
             NewNominationAdditionalFieldCommand = new RelayCommand(NewNominationAdditionalField);
+            AddSubnominationCommand = new RelayCommand(AddSubnomination);
 
             //_context.NominationAdditionalFields.Load();
             //_context.Subnominations.Load();
 
 
-            
+
 
             //if(_navigator.Parameter != null && _navigator.Parameter is Nomination)
             //{
@@ -68,17 +72,24 @@ namespace BestApp.ViewModels.Nominations
             //    }
             //}
             //else
-            //{
-                //Nomination = new Nomination();
-                //Nomination.Subnominations = new ObservableCollection<Subnomination>();
-                //Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
-            //}
 
-            MessengerInstance.Register<Nomination>(this, nomination => SetNomination(nomination));
+            if(Nomination == null)
+            {
+                Nomination = new Nomination();
+                Nomination.Subnominations = new ObservableCollection<Subnomination>();
+                Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
+            }
+
+
 
 
             //NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>(_context.NominationAdditionalFields.Local);
             //Subnominations = new ObservableCollection<Subnomination>(_context.Subnominations.Local);
+        }
+
+        private void AddSubnomination()
+        {
+            Nomination.Subnominations.Add(new Subnomination());
         }
 
         private void NewNominationAdditionalField()

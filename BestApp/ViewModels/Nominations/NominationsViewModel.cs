@@ -1,5 +1,6 @@
 ﻿using BestApp.Data;
 using BestApp.Services.Navigation;
+using BestApp.Views.Reporting;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Models;
@@ -48,13 +49,17 @@ namespace BestApp.ViewModels.Nominations
 
         private void OpenNomination(Nomination nomination)
         {
+            
             MessengerInstance.Send(nomination);
-            _navigator.NavigateTo("NewNomination", nomination);
+            _navigator.NavigateTo("EditNomination", nomination);
         }
 
         private void NewNomination()
         {
             _navigator.NavigateTo("NewNomination");
+
+            //ReportViewerWindow reportViewerWindow = new ReportViewerWindow();
+            //reportViewerWindow.ShowDialog();
         }
     }
 }

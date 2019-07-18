@@ -8,48 +8,65 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="NewNominationPage"
-      DataContext="{Binding Source={StaticResource Locator}, Path=NominationViewModel}">
+      DataContext="{Binding Source={StaticResource Locator}, Path=NominationViewModel}"
+      Background="gray">
 
-    <StackPanel>
-        <TextBox materialDesign:HintAssist.Hint="Название номинации"
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Row="0">
+            <TextBox materialDesign:HintAssist.Hint="Название номинации"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  HorizontalAlignment="Stretch" 
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
                  Text="{Binding Nomination.Name}"
                  Margin="10,10"/>
-        <TextBox materialDesign:HintAssist.Hint="Приоритет"
+            <TextBox materialDesign:HintAssist.Hint="Приоритет"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  HorizontalAlignment="Stretch" 
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
                  Text="{Binding Nomination.Priority}"
                  Margin="10,10"/>
-
-        <DataGrid ItemsSource="{Binding Nomination.NominationAdditionalFields}" Margin="10,10" AutoGenerateColumns="False" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <DataGrid ItemsSource="{Binding Nomination.NominationAdditionalFields}" Margin="10,10" AutoGenerateColumns="False" CanUserAddRows="False" >
+                <DataGrid.Columns>
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
                                                            Header="Название дополнительного поля"
                                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <DataGridCheckBoxColumn Binding="{Binding IsRequired}" 
+                    <DataGridCheckBoxColumn Binding="{Binding IsRequired}" 
                                         Header="Обязательно для заполнения"
                                         ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
-                <DataGridCheckBoxColumn Binding="{Binding IsPrinted}" 
+                    <DataGridCheckBoxColumn Binding="{Binding IsPrinted}" 
                                         Header="Печатается"
                                         ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding NewNominationAdditionalFieldCommand}">Добавить номинацию</Button>
-        <DataGrid ItemsSource="{Binding Nomination.Subnominations}" 
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding NewNominationAdditionalFieldCommand}">Добавить дополнительное поле</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding AddSubnominationCommand}">Добавить подноминацию</Button>
+            <DataGrid ItemsSource="{Binding Nomination.Subnominations}" 
                   Margin="10,10">
-            <DataGrid.Columns>
-                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}" 
+                <DataGrid.Columns>
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}" 
                                                            Header="Название подноминации"
                                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Сохранить" Margin="10,10" HorizontalAlignment="Right" Command="{Binding SaveCommand}"></Button>
-    </StackPanel>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Сохранить" Margin="10,10" HorizontalAlignment="Right" Command="{Binding SaveCommand}"></Button>
+        </StackPanel>
+    </Grid>
 </Page>

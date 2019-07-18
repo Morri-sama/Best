@@ -93,6 +93,7 @@ namespace BestApp.Services.Navigation
                 {
                     frame.Source = _pagesByKey[pageKey];
                 }
+
                 Parameter = parameter;
                 _historic.Add(pageKey);
                 CurrentPageKey = pageKey;

@@ -30,5 +30,8 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>
+        <ComboBox x:Name="Printers" ItemsSource="{Binding Printers}">
+            
+        </ComboBox>
     </StackPanel>
 </Page>
