@@ -1,4 +1,5 @@
 ﻿using BestApp.Data;
+using BestApp.Reports.Diploma;
 using BestApp.Services.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -92,7 +93,25 @@ namespace BestApp.ViewModels.Applications
             Contests = new ObservableCollection<Contest>(_context.Contests.Include(a => a.Application).Where(c => c.Application.Competition.Id == competition.Id));
         }
 
-        
+        private void PrintDiplomas()
+        {
+            if (Contests == null)
+                return;
+
+            foreach(Contest contest in Contests)
+            {
+                var diplomaVm = new DiplomaViewModel()
+                {
+                    AgeCategory = contest.Application.AgeCategory.Name,
+                    City = contest.Application.City,
+                    Composition = contest.Composition,
+                    ParticipantFullName = contest.Application.ParticipantFullName,
+                    Subnomination = contest.Nomination.Name
+                };
+
+
+            }
+        }
 
         private void DisplayReport(Contest contest)
         {
