@@ -1,6 +1,7 @@
 ﻿using BestApp.Data;
 using BestApp.Reports.Diploma;
 using BestApp.Services.Navigation;
+using BestApp.Services.Printing;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +36,7 @@ namespace BestApp.ViewModels.Applications
 
             DisplayApplicationsCommand = new RelayCommand<Competition>(DisplayApplications);
             DisplayReportCommand = new RelayCommand<Contest>(DisplayReport);
+            PrintDiplomasCommand = new RelayCommand(PrintDiplomas);
         }
 
 
@@ -42,10 +45,26 @@ namespace BestApp.ViewModels.Applications
         private ObservableCollection<Contest> _contests;
         private IList<Competition> _competitions;
         private Contest _selectedContest;
+        private string _selectedPrinter;
 
 
         public List<string> Printers { get; set; }
 
+        public string SelectedPrinter
+        {
+            get
+            {
+                return _selectedPrinter;
+            }
+            set
+            {
+                if(_selectedPrinter != value)
+                {
+                    _selectedPrinter = value;
+                    RaisePropertyChanged("SelectedPrinter");
+                }
+            }
+        }
 
         public IList<Competition> Competitions
         {
@@ -87,6 +106,7 @@ namespace BestApp.ViewModels.Applications
 
         public ICommand DisplayApplicationsCommand { get; private set; }
         public ICommand DisplayReportCommand { get; private set; }
+        public ICommand PrintDiplomasCommand { get; private set; }
 
         private void DisplayApplications(Competition competition)
         {
@@ -98,19 +118,34 @@ namespace BestApp.ViewModels.Applications
             if (Contests == null)
                 return;
 
+            List<LocalReport> reports = new List<LocalReport>();
+
             foreach(Contest contest in Contests)
             {
                 var diplomaVm = new DiplomaViewModel()
                 {
-                    AgeCategory = contest.Application.AgeCategory.Name,
-                    City = contest.Application.City,
-                    Composition = contest.Composition,
-                    ParticipantFullName = contest.Application.ParticipantFullName,
-                    Subnomination = contest.Nomination.Name
+                    AgeCategory = "10 лет",
+                    City = contest.Application.City ?? "",
+                    Composition = contest.Composition ?? "",
+                    ParticipantFullName = contest.Application.ParticipantFullName ?? "",
+                    Subnomination = "Вокальное творчество"
                 };
 
 
+                LocalReport localReport = new LocalReport();
+                localReport.DataSources.Add(new ReportDataSource("DataSetMain", new List<DiplomaViewModel>() { diplomaVm }));
+                localReport.ReportEmbeddedResource = "BestApp.Reports.Diploma.Diploma.rdlc";
+
+                reports.Add(localReport);
             }
+
+            PrinterSettings printerSettings = new PrinterSettings();
+            printerSettings.PrinterName = SelectedPrinter;
+
+
+            ReportPrinting reportPrinting = new ReportPrinting(reports, printerSettings);
+            reportPrinting.Print();
+
         }
 
         private void DisplayReport(Contest contest)
