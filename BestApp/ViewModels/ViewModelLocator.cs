@@ -3,7 +3,7 @@ using BestApp.Services.Navigation;
 using BestApp.ViewModels.Applications;
 using BestApp.ViewModels.Competitions;
 using BestApp.ViewModels.Nominations;
-using BestApp.ViewModels.Reporting;
+using BestApp.ViewModels.Settings;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +31,8 @@ namespace BestApp.ViewModels
 
             SimpleIoc.Default.Register<ApplicationsViewModel>();
 
-            SimpleIoc.Default.Register<ReportViewerViewModel>();
+
+            SimpleIoc.Default.Register<SettingsViewModel>();
 
             SetupNavigation();
         }
@@ -47,7 +48,8 @@ namespace BestApp.ViewModels
 
         public ApplicationsViewModel ApplicationsViewModel { get => ServiceLocator.Current.GetInstance<ApplicationsViewModel>(); }
 
-        public ReportViewerViewModel ReportViewerViewModel { get => ServiceLocator.Current.GetInstance<ReportViewerViewModel>(); }
+
+        public SettingsViewModel SettingsViewModel { get => ServiceLocator.Current.GetInstance<SettingsViewModel>(); }
 
         private static void SetupNavigation()
         {
@@ -61,7 +63,8 @@ namespace BestApp.ViewModels
 
             navigationService.Configure("Applications", new Uri("../Views/Applications/ApplicationsPage.xaml", UriKind.Relative));
 
-            navigationService.Configure("ReportViewer", new Uri("../Views/Reporting/ReportViewerPage.xaml", UriKind.Relative));
+
+            navigationService.Configure("Settings", new Uri("../Views/Settings/SettingsPage.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
             SimpleIoc.Default.Register(() => new BestDbContext());            

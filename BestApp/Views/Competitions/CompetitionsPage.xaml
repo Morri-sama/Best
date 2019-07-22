@@ -4,27 +4,48 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BestApp.Views.Competitions"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Конкурсы"
       DataContext="{Binding Path=CompetitionsViewModel, Source={StaticResource Locator}}">
 
-    <StackPanel>
-        <ListView ItemsSource="{Binding Path=Competitions}"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <materialDesign:PopupBox>
+                <Button Content="Добавить конкурс" 
+                        Command="{Binding NewCompetitionCommand}"/>
+            </materialDesign:PopupBox>
+        </StackPanel>
+
+        <materialDesign:Card Grid.Row="1"
+                             Margin="10,10,10,0"
+                             HorizontalAlignment="Stretch">
+            <StackPanel>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="MaterialDesignIconButton">
+                    <materialDesign:PackIcon Kind="Music" />
+                </Button>
+                <ListView ItemsSource="{Binding Path=Competitions}"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Stretch" 
                   Margin="10,10">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding City}" Header="Город"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Date}" Header="Дата и время"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Content="Новый конкурс" 
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Top"                 
-                Command="{Binding NewCompetitionCommand}" 
-                Margin="10,10"/>
-    </StackPanel>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding City}" Header="Город"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Date}" Header="Дата и время"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
 </Page>

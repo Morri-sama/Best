@@ -7,11 +7,11 @@
       xmlns:local="clr-namespace:BestApp.Views.Settings"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SettingsPage">
+      Title="SettingsPage"
+      DataContext="{Binding Source={StaticResource Locator}, Path=SettingsViewModel}">
 
-    <Grid>
-        <ComboBox>
-            
-        </ComboBox>
-    </Grid>
+    <StackPanel>
+        <ComboBox ItemsSource="{Binding PrinterNames}" SelectedItem="{Binding SelectedPrinter}"/>
+        <Button Command="{Binding SaveCommand}"></Button>
+    </StackPanel>
 </Page>

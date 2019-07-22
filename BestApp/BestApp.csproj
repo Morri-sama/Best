@@ -316,7 +316,6 @@
     <Compile Include="ViewModels\Nominations\NominationsViewModel.cs" />
     <Compile Include="ViewModels\Nominations\NominationViewModel.cs" />
     <Compile Include="ViewModels\Printing\DiplomasPrintingViewModel.cs" />
-    <Compile Include="ViewModels\Reporting\ReportViewerViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\Applications\ApplicationsPage.xaml.cs">
@@ -339,9 +338,6 @@
     </Compile>
     <Compile Include="Views\Nominations\NominationsPage.xaml.cs">
       <DependentUpon>NominationsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Reporting\ReportViewerPage.xaml.cs">
-      <DependentUpon>ReportViewerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -378,10 +374,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Nominations\NominationsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Reporting\ReportViewerPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -431,6 +423,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\menuicon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reports\TeacherCertificate\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />

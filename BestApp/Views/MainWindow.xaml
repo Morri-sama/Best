@@ -13,60 +13,105 @@
         Width="1024" 
         MinWidth="512"
         TextElement.Foreground="{DynamicResource MaterialDesignPaper}"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="#FFCFCFCF"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        AllowsTransparency="False" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="False" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="CanMinimize"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <DockPanel LastChildFill="True">
-        <materialDesign:ColorZone Mode="PrimaryMid"
-                                  DockPanel.Dock="Top">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" MouseDown="Image_MouseDown">
-                <TextBlock Text="{Binding ElementName=MainFrame, Path=Content.Title}"></TextBlock>
-                <Button Background="{x:Null}" 
-                    BorderBrush="{x:Null}" 
-                    Command="{Binding }">
+        <Grid DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}" MouseDown="Image_MouseDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="48"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" 
+                   HorizontalContentAlignment="Center"                   
+                   VerticalContentAlignment="Center"
+                   Foreground="White"
+                   Content="БЭСТ"/>
+            <Button Grid.Column="1"
+                    x:Name="MenuToggleButton"
+                    Click="MenuToggleButton_Click"
+                    Background="{x:Null}" 
+                    BorderBrush="{x:Null}"
+                    Width="48"
+                    Height="32">
+                <materialDesign:PackIcon Kind="HamburgerMenu"/>
+            </Button>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Label HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Foreground="White"
+                       Content="{Binding ElementName=MainFrame, Path=Content.Title}"/>
+                <Button x:Name="MinimizeButton"
+                        Click="MinimizeButton_Click"
+                        Background="{x:Null}" 
+                        BorderBrush="{x:Null}" 
+                        Command="{Binding }">
                     <materialDesign:PackIcon Kind="WindowMinimize"/>
                 </Button>
-                <Button Background="{x:Null}" 
-                    BorderBrush="{x:Null}" 
-                    Command="{Binding }">
+                <Button x:Name="MaximizeButton"
+                        Click="MaximizeButton_Click"
+                        Background="{x:Null}" 
+                        BorderBrush="{x:Null}" 
+                        Command="{Binding }">
                     <materialDesign:PackIcon Kind="Fullscreen"/>
                 </Button>
-                <Button Background="{x:Null}" 
-                    BorderBrush="{x:Null}" 
-                    Command="{Binding }">
+                <Button x:Name="CloseButton"
+                        Click="CloseButton_Click"
+                        Background="{x:Null}" 
+                        BorderBrush="{x:Null}" 
+                        Command="{Binding }">
                     <materialDesign:PackIcon Kind="Close"/>
                 </Button>
             </StackPanel>
-        </materialDesign:ColorZone>
-        <StackPanel DockPanel.Dock="Left"
-                        HorizontalAlignment="Left"
-                        Background="{DynamicResource PrimaryHueMidBrush}"
-                        Width="200"
-                        Height="Auto">
+        </Grid>
+        <StackPanel x:Name="MenuPanel"
+                    DockPanel.Dock="Left"
+                    HorizontalAlignment="Left"
+                    Width="200"
+                    Height="Auto">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="LightGray" Offset="1"/>
+                    <GradientStop Color="#FFE6E6E6"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <StackPanel.Effect>
+                <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
+            </StackPanel.Effect>
             <Border Height="100" HorizontalAlignment="Stretch" Background="{DynamicResource SecondaryAccentBrush}">
                 <Image Source="/BestApp;component/Assets/menuicon.jpg" MouseDown="Image_MouseDown" Stretch="UniformToFill"/>
-                </Border>
-                <ListView ItemsSource="{Binding MenuItems}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Height="30" Width="180"  Background="{DynamicResource MaterialDesignBodyLight}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                        <i:InvokeCommandAction Command="{Binding Command}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            <materialDesign:PackIcon Kind="{Binding Path=Icon}" Width="20" Height="20" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}"/>
-                            <TextBlock Text="{Binding Path=Name}" Margin="15 0" FontSize="15" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryAccentForegroundBrush}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
-      
-        
+            </Border>
+            <ListView ItemsSource="{Binding MenuItems}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Button Margin="8" Background="#FF8522BD" BorderBrush="#FF8522BD" Command="{Binding Command}">
+                            <Grid Width="150">
+                                <materialDesign:PackIcon Kind="{Binding Icon}" VerticalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Name}" FontFamily="Champagne &amp; Limousines"/>
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+
         <Frame x:Name="MainFrame"
                DockPanel.Dock="Right"
                NavigationUIVisibility="Hidden"/>

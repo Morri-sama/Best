@@ -20,7 +20,7 @@ namespace BestApp.ViewModels
         public ICommand DisplayCompetitionsCommand { get; private set; }
         public ICommand DisplayNominationsCommand { get; private set; }
         public ICommand DisplayApplicationsCommand { get; private set; }
-        public ICommand DisplayReportViewerCommand { get; private set; }
+        public ICommand DisplaySettingsCommand { get; private set; }
 
         public List<MenuItem> MenuItems { get; private set; }
 
@@ -31,19 +31,19 @@ namespace BestApp.ViewModels
             DisplayCompetitionsCommand = new RelayCommand(DisplayCompetitions);
             DisplayNominationsCommand = new RelayCommand(DisplayNominations);
             DisplayApplicationsCommand = new RelayCommand(DisplayApplications);
-            DisplayReportViewerCommand = new RelayCommand(DisplayReportViewer);
+            DisplaySettingsCommand = new RelayCommand(DisplaySettings);
 
             MenuItems = new List<MenuItem>();
 
-            MenuItems.Add(new MenuItem("Места проведения", PackIconKind.City, DisplayCompetitionsCommand));
+            MenuItems.Add(new MenuItem("Конкурсы", PackIconKind.City, DisplayCompetitionsCommand));
             MenuItems.Add(new MenuItem("Заявки", PackIconKind.FileDocument, DisplayApplicationsCommand));
             MenuItems.Add(new MenuItem("Номинации", PackIconKind.FileMusic, DisplayNominationsCommand));
-            MenuItems.Add(new MenuItem("Репорт", PackIconKind.FileMusic, DisplayReportViewerCommand));
+            MenuItems.Add(new MenuItem("Настройки", PackIconKind.Settings, DisplaySettingsCommand));
         }
 
-        private void DisplayReportViewer()
+        private void DisplaySettings()
         {
-            _navigator.NavigateTo("ReportViewer");
+            _navigator.NavigateTo("Settings");
         }
 
         private void DisplayApplications()
