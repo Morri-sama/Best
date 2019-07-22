@@ -15,10 +15,13 @@ namespace BestApp.Services.Printing
     {
         private readonly PrinterSettings _printerSettings;
         private readonly List<LocalReport> _localReports;
+        private readonly string _printerName;
 
         private ReportPrinting(PrinterSettings printerSettings)
         {
             _printerSettings = printerSettings;
+
+            _printerName = Properties.Settings.Default.PrinterName;
         }
 
         public ReportPrinting(LocalReport localReport, PrinterSettings printer) : this(printer)
@@ -101,7 +104,7 @@ namespace BestApp.Services.Printing
         private string Export(LocalReport localReport)
         {
             PageSettings pageSettings = new PageSettings(_printerSettings);
-
+            
 
             string deviceInfo =
                 $@"<DeviceInfo>
