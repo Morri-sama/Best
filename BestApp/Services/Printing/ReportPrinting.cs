@@ -62,7 +62,8 @@ namespace BestApp.Services.Printing
 
                 var printDocument = new PrintDocument
                 {
-                    DefaultPageSettings = new PageSettings(_printerSettings)
+                    DefaultPageSettings = new PageSettings(_printerSettings),
+                    PrinterSettings = _printerSettings
                 };
 
 

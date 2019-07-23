@@ -139,11 +139,9 @@ namespace BestApp.ViewModels.Applications
                 reports.Add(localReport);
             }
 
-            PrinterSettings printerSettings = new PrinterSettings();
-            printerSettings.PrinterName = SelectedPrinter;
 
 
-            ReportPrinting reportPrinting = new ReportPrinting(reports, printerSettings);
+            ReportPrinting reportPrinting = new ReportPrinting(reports);
             reportPrinting.Print();
 
         }
