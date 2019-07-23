@@ -13,18 +13,18 @@ namespace BestApp.Services.Printing
 {
     public class ReportPrinting : IDisposable
     {
-        private readonly PrinterSettings _printerSettings;
         private readonly List<LocalReport> _localReports;
-        private readonly string _printerName;
+        private readonly PrinterSettings _printerSettings;
 
-        private ReportPrinting(PrinterSettings printerSettings)
+        private ReportPrinting()
         {
-            _printerSettings = printerSettings;
-
-            _printerName = Properties.Settings.Default.PrinterName;
+            _printerSettings = new PrinterSettings()
+            {
+                PrinterName = Properties.Settings.Default.PrinterName
+            };
         }
 
-        public ReportPrinting(LocalReport localReport, PrinterSettings printer) : this(printer)
+        public ReportPrinting(LocalReport localReport) : this()
         {
             _localReports = new List<LocalReport>
             {
@@ -32,7 +32,7 @@ namespace BestApp.Services.Printing
             };
         }
 
-        public ReportPrinting(List<LocalReport> localReports, PrinterSettings printer) : this(printer)
+        public ReportPrinting(List<LocalReport> localReports) : this()
         {
             _localReports = localReports;
         }
@@ -52,7 +52,7 @@ namespace BestApp.Services.Printing
                     return stream;
                 }, out warnings);
 
-                foreach(Stream stream in streams)
+                foreach (Stream stream in streams)
                 {
                     stream.Position = 0;
                 }
@@ -60,8 +60,11 @@ namespace BestApp.Services.Printing
                 if (streams == null || streams.Count == 0)
                     throw new Exception("Error: no stream to print.");
 
-                var printDocument = new PrintDocument();
-                printDocument.DefaultPageSettings = new PageSettings(_printerSettings);
+                var printDocument = new PrintDocument
+                {
+                    DefaultPageSettings = new PageSettings(_printerSettings)
+                };
+
 
                 if (!printDocument.PrinterSettings.IsValid)
                 {
@@ -103,8 +106,8 @@ namespace BestApp.Services.Printing
 
         private string Export(LocalReport localReport)
         {
-            PageSettings pageSettings = new PageSettings(_printerSettings);
-            
+            PageSettings pageSettings = new PageSettings();
+
 
             string deviceInfo =
                 $@"<DeviceInfo>
