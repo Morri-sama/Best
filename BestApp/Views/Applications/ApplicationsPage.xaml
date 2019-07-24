@@ -5,12 +5,69 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:local="clr-namespace:BestApp.Views.Applications"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ApplicationsPage"
       DataContext="{Binding Source={StaticResource Locator}, Path=ApplicationsViewModel}">
 
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <materialDesign:PopupBox>
+                <Button Content="Добавить конкурс" 
+                        Command="{Binding NewCompetitionCommand}"/>
+            </materialDesign:PopupBox>
+        </StackPanel>
+
+
+        <materialDesign:Card Grid.Row="1"
+                             Margin="10,10,10,0"
+                             HorizontalAlignment="Stretch">
+
+
+            <StackPanel>
+                <ComboBox x:Name="ContestsComboBox" 
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Top" 
+                  Width="790" 
+                  ItemsSource="{Binding Competitions}" 
+                  DisplayMemberPath="CityDate">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding DisplayApplicationsCommand}" CommandParameter="{Binding ElementName=ContestsComboBox, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <DataGrid x:Name="Grid" Height="312" VerticalAlignment="Top" ItemsSource="{Binding Contests}" AutoGenerateColumns="True" SelectedItem="{Binding SelectedContest}" IsReadOnly="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding DisplayReportCommand}" CommandParameter="{Binding ElementName=Grid, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DataGrid>
+                <ComboBox x:Name="Printers" ItemsSource="{Binding Printers}" SelectedItem="{Binding SelectedPrinter}">
+
+                </ComboBox>
+
+                <Button x:Name="Print"
+                Command="{Binding PrintDiplomasCommand}"/>
+
+
+            </StackPanel>
+
+
+        </materialDesign:Card>
+
+    </Grid>
+    
+    <!--<StackPanel>
         <ComboBox x:Name="ContestsComboBox" 
                   HorizontalAlignment="Left" 
                   VerticalAlignment="Top" 
@@ -38,5 +95,5 @@
                 Command="{Binding PrintDiplomasCommand}"/>
 
 
-    </StackPanel>
+    </StackPanel>-->
 </Page>

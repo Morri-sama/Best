@@ -134,7 +134,7 @@ namespace BestApp.ViewModels.Applications
 
                 LocalReport localReport = new LocalReport();
                 localReport.DataSources.Add(new ReportDataSource("DataSetMain", new List<DiplomaViewModel>() { diplomaVm }));
-                localReport.ReportEmbeddedResource = "BestApp.Reports.Diploma.Diploma.rdlc";
+                localReport.ReportEmbeddedResource = "BestApp.Reports.Diploma.Diploma2.rdlc";
 
                 reports.Add(localReport);
             }
@@ -143,6 +143,9 @@ namespace BestApp.ViewModels.Applications
 
             ReportPrinting reportPrinting = new ReportPrinting(reports);
             reportPrinting.Print();
+
+            //ReportPrinting2 reportPrinting = new ReportPrinting2(reports);
+            //reportPrinting.Print();
 
         }
 

@@ -108,17 +108,17 @@ namespace BestApp.Services.Printing
         private string Export(LocalReport localReport)
         {
             PageSettings pageSettings = new PageSettings();
-
+            var settings = localReport.GetDefaultPageSettings();
 
             string deviceInfo =
                 $@"<DeviceInfo>
                 <OutputFormat>EMF</OutputFormat>
-                <PageWidth>{pageSettings.PaperSize.Width * 100}in</PageWidth>
-                <PageHeight>{pageSettings.PaperSize.Height * 100}in</PageHeight>
-                <MarginTop>{pageSettings.Margins.Top * 100}in</MarginTop>
-                <MarginLeft>{pageSettings.Margins.Left * 100}in</MarginLeft>
-                <MarginRight>{pageSettings.Margins.Right * 100}in</MarginRight>
-                <MarginBottom>{pageSettings.Margins.Bottom * 100}in</MarginBottom>
+                <PageWidth>{settings.PaperSize.Width * 100}in</PageWidth>
+                <PageHeight>{settings.PaperSize.Height * 100}in</PageHeight>
+                <MarginTop>{settings.Margins.Top * 100}in</MarginTop>
+                <MarginLeft>{settings.Margins.Left * 100}in</MarginLeft>
+                <MarginRight>{settings.Margins.Right * 100}in</MarginRight>
+                <MarginBottom>{settings.Margins.Bottom * 100}in</MarginBottom>
                 </DeviceInfo>";
 
             return deviceInfo;

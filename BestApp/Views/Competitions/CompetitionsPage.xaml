@@ -34,6 +34,8 @@
                         ToolTip="MaterialDesignIconButton">
                     <materialDesign:PackIcon Kind="Music" />
                 </Button>
+
+
                 <ListView ItemsSource="{Binding Path=Competitions}"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Stretch" 
@@ -42,6 +44,16 @@
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding City}" Header="Город"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Date}" Header="Дата и время"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding DiplomaNumber}" Header="Номер диплома"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding IsClosed}" Header="Завершён"/>
+                            <GridViewColumn Header="Действия">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Закрыть"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+  
                         </GridView>
                     </ListView.View>
                 </ListView>

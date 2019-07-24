@@ -222,6 +222,7 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Printing" />
     <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
       <Private>True</Private>
@@ -309,6 +310,7 @@
     <Compile Include="Services\Navigation\FrameNavigationService.cs" />
     <Compile Include="Services\Navigation\IFrameNavigationService.cs" />
     <Compile Include="Services\Printing\ReportPrinting.cs" />
+    <Compile Include="Services\Printing\ReportPrinting2.cs" />
     <Compile Include="ViewModels\Applications\ApplicationsViewModel.cs" />
     <Compile Include="ViewModels\Competitions\CompetitionsViewModel.cs" />
     <Compile Include="ViewModels\Competitions\CompetitionViewModel.cs" />
@@ -404,6 +406,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Diploma\Diploma2.rdlc" />
     <EmbeddedResource Include="Reports\Diploma\Diploma.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BestApp.Reports.Diploma.DiplomaViewModel.datasource" />
