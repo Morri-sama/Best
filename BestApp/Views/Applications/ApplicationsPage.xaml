@@ -28,72 +28,52 @@
 
 
         <materialDesign:Card Grid.Row="1"
-                             Margin="10,10,10,0"
+                             Margin="10,10"
                              HorizontalAlignment="Stretch">
-
-
-            <StackPanel>
-                <ComboBox x:Name="ContestsComboBox" 
-                  HorizontalAlignment="Left" 
-                  VerticalAlignment="Top" 
-                  Width="790" 
-                  ItemsSource="{Binding Competitions}" 
-                  DisplayMemberPath="CityDate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <ComboBox Grid.Row="0"
+                          x:Name="ContestsComboBox" 
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Stretch" 
+                          Margin="10,10"
+                          ItemsSource="{Binding Competitions}" 
+                          DisplayMemberPath="CityDate">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding DisplayApplicationsCommand}" CommandParameter="{Binding ElementName=ContestsComboBox, Path=SelectedItem}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-                <DataGrid x:Name="Grid" Height="312" VerticalAlignment="Top" ItemsSource="{Binding Contests}" AutoGenerateColumns="True" SelectedItem="{Binding SelectedContest}" IsReadOnly="True">
+
+                
+                
+                
+                <DataGrid Grid.Row="1"
+                          x:Name="Grid"
+                          VerticalAlignment="Top" 
+                          Margin="10,43,10,0"
+                          ItemsSource="{Binding Contests}"
+                          AutoGenerateColumns="True" 
+                          SelectedItem="{Binding SelectedContest}" 
+                          IsReadOnly="True"
+                          Height="Auto">
+
+
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding DisplayReportCommand}" CommandParameter="{Binding ElementName=Grid, Path=SelectedItem}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+
+
                 </DataGrid>
-                <ComboBox x:Name="Printers" ItemsSource="{Binding Printers}" SelectedItem="{Binding SelectedPrinter}">
-
-                </ComboBox>
-
-                <Button x:Name="Print"
-                Command="{Binding PrintDiplomasCommand}"/>
-
-
-            </StackPanel>
-
-
+            </Grid>          
         </materialDesign:Card>
 
     </Grid>
-    
-    <!--<StackPanel>
-        <ComboBox x:Name="ContestsComboBox" 
-                  HorizontalAlignment="Left" 
-                  VerticalAlignment="Top" 
-                  Width="790" 
-                  ItemsSource="{Binding Competitions}" 
-                  DisplayMemberPath="CityDate">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding DisplayApplicationsCommand}" CommandParameter="{Binding ElementName=ContestsComboBox, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ComboBox>
-        <DataGrid x:Name="Grid" Height="312" VerticalAlignment="Top" ItemsSource="{Binding Contests}" AutoGenerateColumns="True" SelectedItem="{Binding SelectedContest}" IsReadOnly="True">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding DisplayReportCommand}" CommandParameter="{Binding ElementName=Grid, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </DataGrid>
-        <ComboBox x:Name="Printers" ItemsSource="{Binding Printers}" SelectedItem="{Binding SelectedPrinter}">
-            
-        </ComboBox>
-
-        <Button x:Name="Print"
-                Command="{Binding PrintDiplomasCommand}"/>
-
-
-    </StackPanel>-->
 </Page>

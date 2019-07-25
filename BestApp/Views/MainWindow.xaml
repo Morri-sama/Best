@@ -17,7 +17,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        AllowsTransparency="False" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="CanMinimize"
+        AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="CanResizeWithGrip"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}" MouseDown="Image_MouseDown">
