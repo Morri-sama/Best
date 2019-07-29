@@ -15,6 +15,7 @@ namespace Models
         private DateTime _date;
         private bool _isClosed;
         private int _diplomaNumber;
+        private int _diplomaNumberDigits;
         #endregion
 
         [Key]
@@ -25,6 +26,7 @@ namespace Models
         public bool IsClosed { get { return _isClosed; } set { Notify(ref _isClosed, value, "IsClosed"); } }
 
         public int DiplomaNumber { get { return _diplomaNumber; } set { Notify(ref _diplomaNumber, value, "DiplomaNumber"); } }
+        public int DiplomaNumberDigits { get { return _diplomaNumberDigits; } set { Notify(ref _diplomaNumberDigits, value, "DiplomaNumberDigits"); } }
 
         [NotMapped]
         public string CityDate { get => City + " " + Date.ToString("dd.MM.yyyy"); }

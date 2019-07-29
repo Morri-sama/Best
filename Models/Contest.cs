@@ -12,6 +12,8 @@ namespace Models
         [Key]
         public int Id { get; set; }
 
+        public string DiplomaNumber { get; set; }
+
         [ForeignKey("Application")]
         public int ApplicationId { get; set; }
         public virtual Application Application { get; set; }
@@ -19,14 +21,10 @@ namespace Models
         public int ApproximateTime { get; set; }
         public DateTime PerfomanceTime { get; set; }
 
-        [DisplayName("Автор композиции")]
         public string Composer { get; set; }
-        [DisplayName("Название композиции")]
         public string Composition { get; set; }
 
-        [DisplayName("Дополнительная информация")]
         public string AdditionalInformation { get; set; }
-        [DisplayName("Количество человек")]
         public int PeopleAmount { get; set; }
 
         [ForeignKey("Grade")]

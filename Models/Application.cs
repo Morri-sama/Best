@@ -11,15 +11,13 @@ namespace Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [DisplayName("Id")]
         public int Id { get; set; }
-        [DisplayName("ФИО или название коллектива")]
+
+        
+
         public string ParticipantFullName { get; set; }
-        [DisplayName("Номер телефона участника")]
         public string ParticipantPhoneNumber { get; set; }
-        [DisplayName("Почта участника")]
         public string ParticipantEmail { get; set; }
-        [DisplayName("Организация и город, которую представляет конкурсант")]
         public string City { get; set; }
 
         public virtual List<Contest> Contests { get; set; }
