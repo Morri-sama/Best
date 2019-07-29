@@ -10,45 +10,49 @@
       Title="CompetitionPage"
       DataContext="{Binding Path=CompetitionViewModel, Source={StaticResource Locator}}">
 
-    <StackPanel>
-        <TextBox materialDesign:HintAssist.Hint="Город проведения"
+
+    <materialDesign:Card Margin="10,10"
+                         HorizontalAlignment="Stretch">
+        <StackPanel>
+            <TextBox materialDesign:HintAssist.Hint="Город проведения"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  VerticalAlignment="Top" 
                  Text="{Binding Competition.City}" 
                  HorizontalAlignment="Stretch" 
                  Margin="10,10"/>
-        <TextBox materialDesign:HintAssist.Hint="Начальный номер диплома"
+            <TextBox materialDesign:HintAssist.Hint="Начальный номер диплома"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  VerticalAlignment="Top" 
                  Text="{Binding Competition.DiplomaNumber}" 
                  HorizontalAlignment="Stretch" 
                  Margin="10,10"/>
-        <TextBox materialDesign:HintAssist.Hint="Количество знаков"
+            <TextBox materialDesign:HintAssist.Hint="Количество знаков"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  VerticalAlignment="Top" 
                  Text="{Binding Competition.DiplomaNumberDigits}" 
                  HorizontalAlignment="Stretch" 
                  Margin="10,10"/>
-        <DatePicker HorizontalAlignment="Stretch" 
+            <DatePicker HorizontalAlignment="Stretch" 
                     VerticalAlignment="Top" 
                     SelectedDate="{Binding Competition.Date}"
                     Margin="10,10" 
                     materialDesign:HintAssist.Hint="Дата проведения"/>
-        <materialDesign:TimePicker HorizontalAlignment="Stretch"
+            <materialDesign:TimePicker HorizontalAlignment="Stretch"
                                    VerticalAlignment="Top" 
                                    Margin="10,10" 
                                    SelectedTime="{Binding Competition.Date}" 
                                    Is24Hours="True" 
                                    materialDesign:HintAssist.Hint="Время начала"/>
-        <StackPanel Orientation="Horizontal" 
+            <StackPanel Orientation="Horizontal" 
                     Margin="10,0" 
                     HorizontalAlignment="Right">
-            <Button Content="Отмена" 
+                <Button Content="Отмена" 
                     Command="{Binding BackCommand}" 
                     Margin="10, 0"/>
-            <Button Content="Сохранить"
+                <Button Content="Сохранить"
                     Command="{Binding SaveCommand}" 
-                    Margin="10, 0"/>            
+                    Margin="10, 0"/>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </materialDesign:Card>
 </Page>
