@@ -23,6 +23,12 @@
                  Text="{Binding Competition.DiplomaNumber}" 
                  HorizontalAlignment="Stretch" 
                  Margin="10,10"/>
+        <TextBox materialDesign:HintAssist.Hint="Количество знаков"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 VerticalAlignment="Top" 
+                 Text="{Binding Competition.DiplomaNumberDigits}" 
+                 HorizontalAlignment="Stretch" 
+                 Margin="10,10"/>
         <DatePicker HorizontalAlignment="Stretch" 
                     VerticalAlignment="Top" 
                     SelectedDate="{Binding Competition.Date}"
