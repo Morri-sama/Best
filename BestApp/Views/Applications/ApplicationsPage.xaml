@@ -37,6 +37,11 @@
         <StackPanel Grid.Row="0"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
+            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                    Content="Обновить"
+                    Command="{Binding RefreshCommand}"/>
+
+
             <materialDesign:PopupBox>
                 <Button Content="Добавить конкурс" 
                         Command="{Binding NewCompetitionCommand}"/>
@@ -88,9 +93,11 @@
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Application.ParticipantFullName}"
                                                 Header="ФИО участника"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Grade.Name}"
+                                                Header="Оценка"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Application.AgeCategory.Name}"
                                                 Header="Возрастная категория"/>
-                                <GridViewColumn Header="Действия">
+                                <GridViewColumn>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button Content="Закрыть" 

@@ -33,7 +33,7 @@ namespace BestApp.ViewModels.Applications
         }
 
 
-        public Contest Contest { get; private set; }
+        public Contest Contest { get; set; }
 
         public ICommand AcceptCommand { get; private set; }
 
@@ -53,7 +53,17 @@ namespace BestApp.ViewModels.Applications
 
         private void Accept()
         {
+            using (var context = new BestDbContext())
+            {
+                var x = context.Contests.Where(d => d.Id == Contest.Id).FirstOrDefault();
+                x.GradeId = Contest.GradeId;
+                context.Contests.Update(x);
+                context.SaveChanges();
+            }
             _applicationsViewModel.IsOpen = false;
         }
+
+
+
     }
 }

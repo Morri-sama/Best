@@ -17,7 +17,7 @@
                   Grid.Row="0"
                   ItemsSource="{Binding Grades}"
                   SelectedValuePath="Id"
-                  SelectedItem="{Binding Contest.GradeId, Mode=OneWay}"
+                  SelectedValue="{Binding Contest.GradeId}"
                   DisplayMemberPath="Name">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>

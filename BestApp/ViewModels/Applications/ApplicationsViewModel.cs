@@ -40,6 +40,12 @@ namespace BestApp.ViewModels.Applications
             DisplayReportCommand = new RelayCommand<Contest>(DisplayReport);
             PrintDiplomasCommand = new RelayCommand(PrintDiplomas);
             SetGradeCommand = new RelayCommand<Contest>(SetGrade);
+            RefreshCommand = new RelayCommand(Refresh);
+        }
+
+        private void Refresh()
+        {
+            
         }
 
         private async void SetGrade(Contest contest)
@@ -143,6 +149,7 @@ namespace BestApp.ViewModels.Applications
         public ICommand DisplayReportCommand { get; private set; }
         public ICommand PrintDiplomasCommand { get; private set; }
         public ICommand SetGradeCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
 
         private void DisplayApplications(Competition competition)
         {
