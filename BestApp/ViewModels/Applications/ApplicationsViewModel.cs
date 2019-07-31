@@ -2,8 +2,10 @@
 using BestApp.Reports.Diploma;
 using BestApp.Services.Navigation;
 using BestApp.Services.Printing;
+using BestApp.Views.Applications;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Reporting.WinForms;
 using Models;
@@ -37,8 +39,23 @@ namespace BestApp.ViewModels.Applications
             DisplayApplicationsCommand = new RelayCommand<Competition>(DisplayApplications);
             DisplayReportCommand = new RelayCommand<Contest>(DisplayReport);
             PrintDiplomasCommand = new RelayCommand(PrintDiplomas);
+            SetGradeCommand = new RelayCommand<Contest>(SetGrade);
         }
 
+        private async void SetGrade(Contest contest)
+        {
+            var view = new GradeDialogUserControl()
+            {
+                DataContext = new GradeDialogViewModel(contest, this)
+            };
+
+            var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+        }
+
+        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        {
+            Console.WriteLine("You can intercept the closing event, and cancel here.");
+        }
 
         private readonly IFrameNavigationService _navigator;
         private readonly BestDbContext _context;
@@ -46,6 +63,24 @@ namespace BestApp.ViewModels.Applications
         private IList<Competition> _competitions;
         private Contest _selectedContest;
         private string _selectedPrinter;
+
+
+        private bool _isOpen;
+        public bool IsOpen
+        {
+            get
+            {
+                return _isOpen;
+            }
+            set
+            {
+                _isOpen = value;
+                RaisePropertyChanged("IsOpen");
+            }
+        }
+
+
+
 
 
         public List<string> Printers { get; set; }
@@ -107,6 +142,7 @@ namespace BestApp.ViewModels.Applications
         public ICommand DisplayApplicationsCommand { get; private set; }
         public ICommand DisplayReportCommand { get; private set; }
         public ICommand PrintDiplomasCommand { get; private set; }
+        public ICommand SetGradeCommand { get; private set; }
 
         private void DisplayApplications(Competition competition)
         {

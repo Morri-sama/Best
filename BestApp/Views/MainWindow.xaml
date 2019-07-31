@@ -74,11 +74,9 @@
                     Width="200"
                     Height="Auto">
             <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="LightGray" Offset="1"/>
-                    <GradientStop Color="#FFE6E6E6"/>
-                </LinearGradientBrush>
+                <ImageBrush ImageSource="/BestApp;component/Assets/background.jpg" Opacity="0.65"/>
             </StackPanel.Background>
+
             <StackPanel.Effect>
                 <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
             </StackPanel.Effect>
