@@ -353,6 +353,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Printing\PrintingReportsPage.xaml.cs">
+      <DependentUpon>PrintingReportsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Reporting\ReportViewerWindow.xaml.cs">
       <DependentUpon>ReportViewerWindow.xaml</DependentUpon>
     </Compile>
@@ -390,6 +393,10 @@
     <Page Include="Views\Nominations\NominationsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Printing\PrintingReportsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Reporting\ReportViewerWindow.xaml">
       <SubType>Designer</SubType>

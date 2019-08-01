@@ -153,7 +153,7 @@ namespace BestApp.ViewModels.Applications
 
         private void DisplayApplications(Competition competition)
         {
-            Contests = new ObservableCollection<Contest>(_context.Contests.Include(a => a.Application).ThenInclude(p=>p.AgeCategory).Where(c => c.Application.Competition.Id == competition.Id));
+            Contests = new ObservableCollection<Contest>(_context.Contests.Include(a => a.Application).ThenInclude(p=>p.AgeCategory).Include(d=>d.Grade).Where(c => c.Application.Competition.Id == competition.Id));
         }
 
         private void PrintDiplomas()
