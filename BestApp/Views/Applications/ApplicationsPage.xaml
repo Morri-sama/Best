@@ -100,7 +100,7 @@
                                 <GridViewColumn>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Content="Закрыть" 
+                                            <Button Content="Оценить" 
                                                     Style="{DynamicResource MaterialDesignFlatButton}"    
                                                     Command="{Binding ElementName=Grid, Path=DataContext.SetGradeCommand}"
                                                     CommandParameter="{Binding}"/>
