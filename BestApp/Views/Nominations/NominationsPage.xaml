@@ -22,10 +22,20 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Название"/>
+                    <GridViewColumn Header="Действия">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Удалить"
+                                        Command="{Binding DataContext.DeleteCommand, ElementName=listView}"
+                                        CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
         
         <Button Command="{Binding NewNominationCommand}" Content="New" Margin="595,329,10,69"/>
+        <Button Command="{Binding RefreshCommand}" Content="Refresh" Margin="405,329,225,69"/>
     </Grid>
 </Page>
