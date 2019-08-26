@@ -6,11 +6,14 @@ using System.Text;
 
 namespace Models
 {
-    public class Subnomination
+    public class Subnomination : PropertyChangedBase
     {
+        private int id;
+        private string name;
+
         [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get { return id; } set { Notify(ref id, value, "Id"); } }
+        public string Name { get { return name; } set { Notify(ref name, value, "Name"); } }
 
         [ForeignKey("Nomination")]
         public int NominationId { get; set; }
