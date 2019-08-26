@@ -16,19 +16,20 @@ namespace BestApp.ViewModels.Nominations
 {
     public class NominationViewModel : ViewModelBase
     {
-        private readonly IFrameNavigationService _navigator;
-        private readonly BestDbContext _context;
-        private Nomination _nomination;
+        private readonly IFrameNavigationService navigator;
+        private readonly BestDbContext context;
+
+        private Nomination nomination;
 
         public Nomination Nomination
         {
             get
             {
-                return _nomination;
+                return nomination;
             }
             set
             {
-                _nomination = value;
+                nomination = value;
                 RaisePropertyChanged("Nomination");
             }
         }
@@ -43,8 +44,8 @@ namespace BestApp.ViewModels.Nominations
         {
             MessengerInstance.Register<Nomination>(this, nomination => SetNomination(nomination));
 
-            _navigator = navigator;
-            _context = context;
+            this.navigator = navigator;
+            this.context = context;
 
             SaveCommand = new RelayCommand(Save);
             UpdateCommand = new RelayCommand(Update);
@@ -99,16 +100,16 @@ namespace BestApp.ViewModels.Nominations
 
         private void Save()
         {
-            _context.Nominations.Add(Nomination);
+            context.Nominations.Add(Nomination);
 
-            _context.SaveChanges();
+            context.SaveChanges();
         }
 
         private void Update()
         {
-            _context.Nominations.Update(Nomination);
+            context.Nominations.Update(Nomination);
 
-            _context.SaveChanges();
+            context.SaveChanges();
         }
 
         private void SetNomination(Nomination nomination)

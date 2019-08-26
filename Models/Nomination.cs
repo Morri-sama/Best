@@ -10,16 +10,16 @@ namespace Models
     public class Nomination : PropertyChangedBase
     {
         #region Fields
-        private int _id;
-        private string _name;
-        private int _priority; 
+        private int id;
+        private string name;
+        private int priority; 
         #endregion
 
 
         [Key]
-        public int      Id       { get { return _id; }       set { Notify(ref _id, value, "Id"); } }
-        public string   Name     { get { return _name; }     set { Notify(ref _name, value, "Name"); } }
-        public int      Priority { get { return _priority; } set { Notify(ref _priority, value, "Priority"); } }
+        public int      Id       { get { return id; }       set { Notify(ref id, value, "Id"); } }
+        public string   Name     { get { return name; }     set { Notify(ref name, value, "Name"); } }
+        public int      Priority { get { return priority; } set { Notify(ref priority, value, "Priority"); } }
 
 
         public virtual ObservableCollection<Subnomination> Subnominations { get; set; }
