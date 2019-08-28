@@ -15,7 +15,7 @@ namespace BestApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly IFrameNavigationService _navigator;
+        private readonly IFrameNavigationService navigator;
 
         public ICommand DisplayCompetitionsCommand { get; private set; }
         public ICommand DisplayNominationsCommand { get; private set; }
@@ -26,39 +26,40 @@ namespace BestApp.ViewModels
 
         public MainViewModel(IFrameNavigationService navigator)
         {
-            _navigator = navigator;
+            this.navigator = navigator;
 
             DisplayCompetitionsCommand = new RelayCommand(DisplayCompetitions);
             DisplayNominationsCommand = new RelayCommand(DisplayNominations);
             DisplayApplicationsCommand = new RelayCommand(DisplayApplications);
             DisplaySettingsCommand = new RelayCommand(DisplaySettings);
 
-            MenuItems = new List<MenuItem>();
-
-            MenuItems.Add(new MenuItem("Конкурсы", PackIconKind.City, DisplayCompetitionsCommand));
-            MenuItems.Add(new MenuItem("Заявки", PackIconKind.FileDocument, DisplayApplicationsCommand));
-            MenuItems.Add(new MenuItem("Номинации", PackIconKind.FileMusic, DisplayNominationsCommand));
-            MenuItems.Add(new MenuItem("Настройки", PackIconKind.Settings, DisplaySettingsCommand));
+            MenuItems = new List<MenuItem>
+            {
+                new MenuItem("Конкурсы", PackIconKind.City, DisplayCompetitionsCommand),
+                new MenuItem("Заявки", PackIconKind.FileDocument, DisplayApplicationsCommand),
+                new MenuItem("Номинации", PackIconKind.FileMusic, DisplayNominationsCommand),
+                new MenuItem("Настройки", PackIconKind.Settings, DisplaySettingsCommand)
+            };
         }
 
         private void DisplaySettings()
         {
-            _navigator.NavigateTo("Settings");
+            navigator.NavigateTo("Settings");
         }
 
         private void DisplayApplications()
         {
-            _navigator.NavigateTo("Applications");
+            navigator.NavigateTo("Applications");
         }
 
         private void DisplayNominations()
         {
-            _navigator.NavigateTo("Nominations");
+            navigator.NavigateTo("Nominations");
         }
 
         private void DisplayCompetitions()
         {
-            _navigator.NavigateTo("Competitions");
+            navigator.NavigateTo("Competitions");
         }
 
         private void Close()

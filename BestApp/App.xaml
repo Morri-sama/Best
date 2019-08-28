@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Purple.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:BestApp.ViewModels" />
+            
             <CollectionViewSource Source="{Binding Contests}" x:Key="contestsView">
                 <CollectionViewSource.SortDescriptions>
                     <componentModel:SortDescription PropertyName="Application.AgeCategory.Priority"/>

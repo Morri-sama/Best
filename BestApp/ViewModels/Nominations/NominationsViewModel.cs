@@ -17,28 +17,6 @@ namespace BestApp.ViewModels.Nominations
 {
     public class NominationsViewModel : ViewModelBase
     {
-        private readonly IFrameNavigationService navigator;
-        private readonly BestDbContext context;
-        private ObservableCollection<Nomination> nominations;
-
-        public ObservableCollection<Nomination> Nominations
-        {
-            get
-            {
-                return this.nominations;
-            }
-            private set
-            {
-                this.nominations = value;
-                RaisePropertyChanged("Nominations");
-            }
-        }
-
-        public ICommand NewNominationCommand { get; private set; }
-        public ICommand OpenNominationCommand { get; private set; }
-        public ICommand RefreshCommand { get; private set; }
-        public ICommand DeleteCommand { get; private set; }
-
         public NominationsViewModel(IFrameNavigationService navigator, BestDbContext context)
         {
             this.navigator = navigator;
@@ -54,6 +32,30 @@ namespace BestApp.ViewModels.Nominations
             DeleteCommand = new RelayCommand<Nomination>(Delete);
         }
 
+        private readonly IFrameNavigationService navigator;
+        private readonly BestDbContext context;
+        private ObservableCollection<Nomination> nominations;
+
+        public ICommand NewNominationCommand { get; private set; }
+        public ICommand OpenNominationCommand { get; private set; }
+        public ICommand RefreshCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; }
+
+        public ObservableCollection<Nomination> Nominations
+        {
+            get
+            {
+                return this.nominations;
+            }
+            private set
+            {
+                this.nominations = value;
+                RaisePropertyChanged("Nominations");
+            }
+        }
+
+
+
         private void Delete(Nomination nomination)
         {
             this.context.Nominations.Remove(nomination);
@@ -67,9 +69,9 @@ namespace BestApp.ViewModels.Nominations
 
         private void OpenNomination(Nomination nomination)
         {
-            
-            MessengerInstance.Send(nomination);
-            this.navigator.NavigateTo("EditNomination", nomination);
+
+            //MessengerInstance.Send(nomination);
+            this.navigator.NavigateTo("EditNomination", "Nomination", nomination);
         }
 
         private void NewNomination()

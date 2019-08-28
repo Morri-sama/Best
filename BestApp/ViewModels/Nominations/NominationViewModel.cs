@@ -39,10 +39,11 @@ namespace BestApp.ViewModels.Nominations
         public ICommand NewNominationAdditionalFieldCommand { get; private set; }
         public ICommand AddSubnominationCommand { get; private set; }
 
+        
 
         public NominationViewModel(IFrameNavigationService navigator, BestDbContext context)
         {
-            MessengerInstance.Register<Nomination>(this, nomination => SetNomination(nomination));
+            //MessengerInstance.Register<Nomination>(this, nomination => SetNomination(nomination));
 
             this.navigator = navigator;
             this.context = context;
