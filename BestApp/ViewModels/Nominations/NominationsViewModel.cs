@@ -69,8 +69,6 @@ namespace BestApp.ViewModels.Nominations
 
         private void OpenNomination(Nomination nomination)
         {
-
-            //MessengerInstance.Send(nomination);
             this.navigator.NavigateTo("EditNomination", "Nomination", nomination);
         }
 

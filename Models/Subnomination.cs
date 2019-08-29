@@ -13,6 +13,8 @@ namespace Models
 
         [Key]
         public int Id { get { return id; } set { Notify(ref id, value, "Id"); } }
+
+        [Required]
         public string Name { get { return name; } set { Notify(ref name, value, "Name"); } }
 
         [ForeignKey("Nomination")]

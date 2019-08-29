@@ -15,17 +15,15 @@ namespace Models
 
         [Key]
         public int Id { get { return id; } set { Notify(ref id, value, "Id"); } }
+
+        [Required]
         public string Name { get { return name; } set { Notify(ref name, value, "Name"); } }
+
+        [Required]
         public int Priority { get { return priority; } set { Notify(ref priority, value, "Priority"); } }
 
 
         public virtual ObservableCollection<Subnomination> Subnominations { get; set; }
         public virtual ObservableCollection<NominationAdditionalField> NominationAdditionalFields { get; set; }
-
-        public Nomination()
-        {
-            Subnominations = new ObservableCollection<Subnomination>();
-            NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
-        }
     }
 }

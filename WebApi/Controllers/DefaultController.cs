@@ -12,17 +12,17 @@ namespace WebApi.Controllers
     [ApiController]
     public class DefaultController : ControllerBase
     {
-        BestDbContext _context;
+        readonly BestDbContext context;
 
         public DefaultController(BestDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         [HttpGet, Route("GetNominations")]
         public ActionResult<List<Nomination>> GetNominations()
         {
-            List<Nomination> nominations = _context.Nominations.ToList();
+            List<Nomination> nominations = context.Nominations.ToList();
 
             return nominations;
         }
@@ -32,21 +32,21 @@ namespace WebApi.Controllers
         [HttpGet, Route("GetTeacherTypes")]
         public ActionResult<List<TeacherType>> GetTeacherTypes()
         {
-            List<TeacherType> teacherTypes = _context.TeacherTypes.ToList();
+            List<TeacherType> teacherTypes = context.TeacherTypes.ToList();
             return teacherTypes;
         }
 
         [HttpGet, Route("GetAgeCategories")]
         public ActionResult<List<AgeCategory>> GetAgeCategories()
         {
-            List<AgeCategory> ageCategories = _context.AgeCategories.ToList();
+            List<AgeCategory> ageCategories = context.AgeCategories.ToList();
             return ageCategories;
         }
 
         [HttpGet, Route("GetCompetitions")]
         public ActionResult<List<Competition>> GetCompetitions()
         {
-            List<Competition> competitions = _context.Competitions.OrderBy(o => o.Date).ToList();
+            List<Competition> competitions = context.Competitions.OrderBy(o => o.Date).ToList();
             return competitions;
         }
 
@@ -55,7 +55,7 @@ namespace WebApi.Controllers
         [Route("GetSubnominations")]
         public ActionResult<List<Subnomination>> GetSubnominations(int nominationId)
         {
-            List<Subnomination> subnominations = _context.Subnominations.Where(d => d.NominationId == nominationId).ToList();
+            List<Subnomination> subnominations = context.Subnominations.Where(d => d.NominationId == nominationId).ToList();
 
             return subnominations;
         }
@@ -64,7 +64,7 @@ namespace WebApi.Controllers
         [Route("GetNominationAdditionalFields")]
         public ActionResult<List<NominationAdditionalField>> GetNominationAdditionalFields(int nominationId)
         {
-            List<NominationAdditionalField> nominationAdditionalFields = _context.NominationAdditionalFields.Where(d => d.NominationId == nominationId).ToList();
+            List<NominationAdditionalField> nominationAdditionalFields = context.NominationAdditionalFields.Where(d => d.NominationId == nominationId).ToList();
 
             return nominationAdditionalFields;
         }
@@ -72,8 +72,8 @@ namespace WebApi.Controllers
         [HttpPost, Route("PostApplication")]
         public ActionResult PostApplication([FromBody]Application application)
         {
-            _context.Applications.Add(application);
-            _context.SaveChanges();
+            context.Applications.Add(application);
+            context.SaveChanges();
             return Ok();
         }
     }
