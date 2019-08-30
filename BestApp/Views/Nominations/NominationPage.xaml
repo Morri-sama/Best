@@ -54,7 +54,7 @@
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding NewNominationAdditionalFieldCommand}">Добавить дополнительное поле</Button>
+            <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding AddNominationAdditionalFieldCommand}">Добавить дополнительное поле</Button>
         </StackPanel>
         <StackPanel Grid.Row="2">
             <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding AddSubnominationCommand}">Добавить подноминацию</Button>

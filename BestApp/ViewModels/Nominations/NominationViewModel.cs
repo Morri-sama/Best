@@ -16,7 +16,7 @@ namespace BestApp.ViewModels.Nominations
 {
     public class NominationViewModel : ViewModelBase
     {
-        public NominationViewModel()
+        private NominationViewModel()
         {
             this.context = new BestDbContext();
 
@@ -25,15 +25,15 @@ namespace BestApp.ViewModels.Nominations
             Nomination = new Nomination();
 
             SaveCommand = new RelayCommand(Save);
-            NewNominationAdditionalFieldCommand = new RelayCommand(NewNominationAdditionalField);
+            AddNominationAdditionalFieldCommand = new RelayCommand(AddNominationAdditionalField);
             AddSubnominationCommand = new RelayCommand(AddSubnomination);
         }
 
-        public NominationViewModel(IFrameNavigationService navigator) : base()
+        public NominationViewModel(IFrameNavigationService navigator) : this()
         {
-            this.navigator = navigator;           
+            this.navigator = navigator;
         }
-        
+
 
         private readonly IFrameNavigationService navigator;
         private readonly BestDbContext context;
@@ -53,13 +53,8 @@ namespace BestApp.ViewModels.Nominations
         }
 
         public ICommand SaveCommand { get; private set; }
-        public ICommand NewNominationAdditionalFieldCommand { get; private set; }
+        public ICommand AddNominationAdditionalFieldCommand { get; private set; }
         public ICommand AddSubnominationCommand { get; private set; }
-
-
-
-
-
 
 
         private void NominationViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -70,6 +65,9 @@ namespace BestApp.ViewModels.Nominations
                     {
                         this.context.Nominations.Local.Clear();
                         this.context.Attach(Nomination);
+
+                        this.context.Entry(Nomination).Collection(r => r.NominationAdditionalFields).Load();
+                        this.context.Entry(Nomination).Collection(r => r.Subnominations).Load();
                     }
                     break;
             }
@@ -85,7 +83,7 @@ namespace BestApp.ViewModels.Nominations
             Nomination.Subnominations.Add(new Subnomination());
         }
 
-        private void NewNominationAdditionalField()
+        private void AddNominationAdditionalField()
         {
             if (Nomination.NominationAdditionalFields == null)
             {

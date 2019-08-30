@@ -78,12 +78,12 @@ namespace BestApp.ViewModels.Nominations
 
         private void OpenNomination(Nomination nomination)
         {
-            this.navigator.NavigateTo("NewNomination", "Nomination", nomination);
+            this.navigator.NavigateTo("Nomination", "Nomination", nomination);
         }
 
         private void NewNomination()
         {
-            this.navigator.NavigateTo("NewNomination");
+            this.navigator.NavigateTo("Nomination");
 
             //ReportViewerWindow reportViewerWindow = new ReportViewerWindow();
             //reportViewerWindow.ShowDialog();

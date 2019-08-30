@@ -64,7 +64,7 @@ namespace BestApp.ViewModels
             navigationService.Configure("Competition", new Uri("../Views/Competitions/CompetitionPage.xaml", UriKind.Relative));
 
             navigationService.Configure("Nominations", new Uri("../Views/Nominations/NominationsPage.xaml", UriKind.Relative));
-            navigationService.Configure("Nomination", new Uri("../Views/Nominations/NewNominationPage.xaml", UriKind.Relative));
+            navigationService.Configure("Nomination", new Uri("../Views/Nominations/NominationPage.xaml", UriKind.Relative));
 
             navigationService.Configure("Applications", new Uri("../Views/Applications/ApplicationsPage.xaml", UriKind.Relative));
 

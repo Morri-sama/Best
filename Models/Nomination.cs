@@ -13,6 +13,9 @@ namespace Models
         private string name;
         private int priority;
 
+        private ObservableCollection<Subnomination> subnominations;
+        private ObservableCollection<NominationAdditionalField> nominationAdditionalFields;
+
         [Key]
         public int Id { get { return id; } set { Notify(ref id, value, "Id"); } }
 
@@ -23,7 +26,27 @@ namespace Models
         public int Priority { get { return priority; } set { Notify(ref priority, value, "Priority"); } }
 
 
-        public virtual ObservableCollection<Subnomination> Subnominations { get; set; }
-        public virtual ObservableCollection<NominationAdditionalField> NominationAdditionalFields { get; set; }
+        public virtual ObservableCollection<Subnomination> Subnominations
+        {
+            get
+            {
+                return subnominations;
+            }
+            set
+            {
+                Notify(ref subnominations, value, "Subnominations");
+            }
+        }
+        public virtual ObservableCollection<NominationAdditionalField> NominationAdditionalFields
+        {
+            get
+            {
+                return nominationAdditionalFields;
+            }
+            set
+            {
+                Notify(ref nominationAdditionalFields, value, "NominationAdditionalFields");
+            }
+        }
     }
 }
