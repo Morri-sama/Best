@@ -43,7 +43,13 @@ namespace BestApp.ViewModels
         public CompetitionViewModel CompetitionViewModel { get => ServiceLocator.Current.GetInstance<CompetitionViewModel>(); }
 
         public NominationsViewModel NominationsViewModel { get => ServiceLocator.Current.GetInstance<NominationsViewModel>(); }
-        public NominationViewModel NominationViewModel { get => ServiceLocator.Current.GetInstance<NominationViewModel>(); }
+        public NominationViewModel NominationViewModel
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstanceWithoutCaching<NominationViewModel>();
+            }
+        }
 
 
         public ApplicationsViewModel ApplicationsViewModel { get => ServiceLocator.Current.GetInstance<ApplicationsViewModel>(); }
@@ -58,8 +64,7 @@ namespace BestApp.ViewModels
             navigationService.Configure("Competition", new Uri("../Views/Competitions/CompetitionPage.xaml", UriKind.Relative));
 
             navigationService.Configure("Nominations", new Uri("../Views/Nominations/NominationsPage.xaml", UriKind.Relative));
-            navigationService.Configure("NewNomination", new Uri("../Views/Nominations/NewNominationPage.xaml", UriKind.Relative));
-            navigationService.Configure("EditNomination", new Uri("../Views/Nominations/EditNominationPage.xaml", UriKind.Relative));
+            navigationService.Configure("Nomination", new Uri("../Views/Nominations/NewNominationPage.xaml", UriKind.Relative));
 
             navigationService.Configure("Applications", new Uri("../Views/Applications/ApplicationsPage.xaml", UriKind.Relative));
 
@@ -67,7 +72,7 @@ namespace BestApp.ViewModels
             navigationService.Configure("Settings", new Uri("../Views/Settings/SettingsPage.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
-            SimpleIoc.Default.Register(() => new BestDbContext());            
+            SimpleIoc.Default.Register(() => new BestDbContext());
         }
 
 

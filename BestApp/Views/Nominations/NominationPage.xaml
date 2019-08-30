@@ -1,4 +1,4 @@
-﻿<Page x:Class="BestApp.Views.Nominations.NewNominationPage"
+﻿<Page x:Class="BestApp.Views.Nominations.NominationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="NewNominationPage"
+      Title="sssss"
       DataContext="{Binding Source={StaticResource Locator}, Path=NominationViewModel}"
       Background="gray">
 

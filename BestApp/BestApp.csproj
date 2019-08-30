@@ -356,11 +356,8 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Nominations\EditNominationPage.xaml.cs">
-      <DependentUpon>EditNominationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Nominations\NewNominationPage.xaml.cs">
-      <DependentUpon>NewNominationPage.xaml</DependentUpon>
+    <Compile Include="Views\Nominations\NominationPage.xaml.cs">
+      <DependentUpon>NominationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Nominations\NominationsPage.xaml.cs">
       <DependentUpon>NominationsPage.xaml</DependentUpon>
@@ -398,11 +395,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Nominations\EditNominationPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Nominations\NewNominationPage.xaml">
+    <Page Include="Views\Nominations\NominationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

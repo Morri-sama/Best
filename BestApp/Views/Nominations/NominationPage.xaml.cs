@@ -18,9 +18,9 @@ namespace BestApp.Views.Nominations
     /// <summary>
     /// Interaction logic for NewNominationPage.xaml
     /// </summary>
-    public partial class EditNominationPage : Page
+    public partial class NominationPage : Page
     {
-        public EditNominationPage()
+        public NominationPage()
         {
             InitializeComponent();
         }

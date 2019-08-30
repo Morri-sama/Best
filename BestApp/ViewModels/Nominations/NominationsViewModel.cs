@@ -17,10 +17,9 @@ namespace BestApp.ViewModels.Nominations
 {
     public class NominationsViewModel : ViewModelBase
     {
-        public NominationsViewModel(IFrameNavigationService navigator, BestDbContext context)
+        private NominationsViewModel()
         {
-            this.navigator = navigator;
-            this.context = context;
+            this.context = new BestDbContext();
 
             this.context.Nominations.Load();
 
@@ -32,14 +31,24 @@ namespace BestApp.ViewModels.Nominations
             DeleteCommand = new RelayCommand<Nomination>(Delete);
         }
 
+        public NominationsViewModel(IFrameNavigationService navigator) : this()
+        {
+            this.navigator = navigator;            
+        }
+
+
+
+
         private readonly IFrameNavigationService navigator;
         private readonly BestDbContext context;
         private ObservableCollection<Nomination> nominations;
+
 
         public ICommand NewNominationCommand { get; private set; }
         public ICommand OpenNominationCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
+               
 
         public ObservableCollection<Nomination> Nominations
         {
@@ -69,7 +78,7 @@ namespace BestApp.ViewModels.Nominations
 
         private void OpenNomination(Nomination nomination)
         {
-            this.navigator.NavigateTo("EditNomination", "Nomination", nomination);
+            this.navigator.NavigateTo("NewNomination", "Nomination", nomination);
         }
 
         private void NewNomination()
