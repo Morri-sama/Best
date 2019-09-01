@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BestApp.Views.Nominations"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="sssss"
@@ -38,24 +39,39 @@
                  Text="{Binding Nomination.Priority}"
                  Margin="10,10"/>
         </StackPanel>
-        <StackPanel Grid.Row="1">
-            <DataGrid ItemsSource="{Binding Nomination.NominationAdditionalFields}" Margin="10,10" AutoGenerateColumns="False" CanUserAddRows="False" >
-                <DataGrid.Columns>
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
+        <DataGrid x:Name="NominationAdditionalFieldsGrid"
+                  Grid.Row="1" 
+                  ItemsSource="{Binding Nomination.NominationAdditionalFields}" 
+                  Margin="10,10" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False" 
+                  VerticalAlignment="Stretch" 
+                  MinHeight="100">
+            <DataGrid.Columns>
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
                                                            Header="Название дополнительного поля"
                                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                    <DataGridCheckBoxColumn Binding="{Binding IsRequired}" 
+                <DataGridCheckBoxColumn Binding="{Binding IsRequired}" 
                                         Header="Обязательно для заполнения"
                                         ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding IsPrinted}" 
+                <DataGridCheckBoxColumn Binding="{Binding IsPrinted}" 
                                         Header="Печатается"
                                         ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding AddNominationAdditionalFieldCommand}">Добавить дополнительное поле</Button>
-        </StackPanel>
+                <DataGridTemplateColumn Header="Действия">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" 
+                                    Style="{DynamicResource MaterialDesignFlatButton}"    
+                                    Command="{Binding ElementName=NominationAdditionalFieldsGrid, Path=DataContext.DeleteNominationAdditionalFieldCommand}"
+                                    CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding AddNominationAdditionalFieldCommand}">Добавить дополнительное поле</Button>
         <StackPanel Grid.Row="2">
             <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding AddSubnominationCommand}">Добавить подноминацию</Button>
             <DataGrid ItemsSource="{Binding Nomination.Subnominations}" 

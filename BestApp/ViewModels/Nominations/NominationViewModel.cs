@@ -27,6 +27,7 @@ namespace BestApp.ViewModels.Nominations
             SaveCommand = new RelayCommand(Save);
             AddNominationAdditionalFieldCommand = new RelayCommand(AddNominationAdditionalField);
             AddSubnominationCommand = new RelayCommand(AddSubnomination);
+            DeleteNominationAdditionalFieldCommand = new RelayCommand<NominationAdditionalField>(DeleteNominationAdditionalField);
         }
 
         public NominationViewModel(IFrameNavigationService navigator) : this()
@@ -55,6 +56,7 @@ namespace BestApp.ViewModels.Nominations
         public ICommand SaveCommand { get; private set; }
         public ICommand AddNominationAdditionalFieldCommand { get; private set; }
         public ICommand AddSubnominationCommand { get; private set; }
+        public ICommand DeleteNominationAdditionalFieldCommand { get; private set; }
 
 
         private void NominationViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -75,27 +77,22 @@ namespace BestApp.ViewModels.Nominations
 
         private void AddSubnomination()
         {
-            if (Nomination.Subnominations == null)
-            {
-                Nomination.Subnominations = new ObservableCollection<Subnomination>();
-            }
-
             Nomination.Subnominations.Add(new Subnomination());
         }
 
         private void AddNominationAdditionalField()
         {
-            if (Nomination.NominationAdditionalFields == null)
-            {
-                Nomination.NominationAdditionalFields = new ObservableCollection<NominationAdditionalField>();
-            }
-
             Nomination.NominationAdditionalFields.Add(new NominationAdditionalField());
+        }
+
+        private void DeleteNominationAdditionalField(NominationAdditionalField nominationAdditionalField)
+        {
+            Nomination.NominationAdditionalFields.Remove(nominationAdditionalField);
         }
 
         private void Save()
         {
-            context.SaveChanges();
+            this.context.SaveChanges();
         }
     }
 }
