@@ -35,6 +35,7 @@ namespace BestApp.Data
                 new TeacherType { Id = 3, Name = "Руководитель" }
             );
 
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

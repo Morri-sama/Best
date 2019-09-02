@@ -12,13 +12,33 @@ namespace Models
         private string name;
 
         [Key]
-        public int Id { get { return id; } set { Notify(ref id, value, "Id"); } }
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                Notify(ref id, value, "Id");
+            }
+        }
 
         [Required]
-        public string Name { get { return name; } set { Notify(ref name, value, "Name"); } }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                Notify(ref name, value, "Name");
+            }
+        }
 
         [ForeignKey("Nomination")]
         public int NominationId { get; set; }
-        public Nomination Nomination { get; set; }
+        public virtual Nomination Nomination { get; set; }
     }
 }

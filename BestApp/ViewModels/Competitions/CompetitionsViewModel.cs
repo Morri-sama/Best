@@ -18,45 +18,49 @@ namespace BestApp.ViewModels.Competitions
 {
     public class CompetitionsViewModel : ViewModelBase
     {
-        private readonly IFrameNavigationService _navigator;
-        private readonly BestDbContext _context;
+        private CompetitionsViewModel()
+        {
+            this.context = new BestDbContext();
+            this.context.Competitions.Load();
 
-        private ObservableCollection<Competition> _competitions;
+            Competitions = this.context.Competitions.Local.ToObservableCollection();
 
+            NewCompetitionCommand = new RelayCommand(NewCompetition);
+        }
+
+        public CompetitionsViewModel(IFrameNavigationService navigator) : this()
+        {
+            this.navigator = navigator;          
+
+           // Competitions = new ObservableCollection<Competition>(context.Competitions.Include(c => c.Applications).OrderBy(o => o.Date));
+        }
+
+        private readonly IFrameNavigationService navigator;
+        private readonly BestDbContext context;
+
+
+        private ObservableCollection<Competition> competitions;
         public ObservableCollection<Competition> Competitions
         {
             get
             {
-                return _competitions;
+                return competitions;
             }
 
             private set
             {
-                if (_competitions == value)
-                {
-                    return;
-                }
-
-                _competitions = value;
+                competitions = value;
                 RaisePropertyChanged("Competitions");
             }
         }
 
         public ICommand NewCompetitionCommand { get; private set; }
 
-        public CompetitionsViewModel(IFrameNavigationService navigator, BestDbContext context)
-        {
-            _navigator = navigator;
-            _context = context;
 
-            NewCompetitionCommand = new RelayCommand(NewCompetition);
-
-            Competitions = new ObservableCollection<Competition>(_context.Competitions.Include(c=>c.Applications).OrderBy(o => o.Date));
-        }
 
         private void NewCompetition()
         {
-            _navigator.NavigateTo("Competition");
+            navigator.NavigateTo("Competition");
         }
     }
 }

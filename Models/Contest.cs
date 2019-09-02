@@ -31,9 +31,9 @@ namespace Models
         public int? GradeId { get; set; }
         public virtual Grade Grade { get; set; }
 
-        [ForeignKey("Nomination")]
-        public int? NominationId { get; set; }
-        public virtual Nomination Nomination { get; set; }
+        //[ForeignKey("Nomination")]        
+        //public int? NominationId { get; set; }
+        //public virtual Nomination Nomination { get; set; }
 
         [ForeignKey("Subnomination")]
         public int? SubnominationId { get; set; }

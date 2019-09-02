@@ -53,7 +53,7 @@
                              Margin="10,10"
                              HorizontalAlignment="Stretch">
             <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}" IsOpen="{Binding IsOpen}" CloseOnClickAway="True">
-                
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -63,12 +63,14 @@
 
 
                     <ComboBox Grid.Row="0"
-                          x:Name="ContestsComboBox" 
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Stretch" 
-                          Margin="10,10"
-                          ItemsSource="{Binding Competitions}" 
-                          DisplayMemberPath="CityDate">
+                              x:Name="ContestsComboBox" 
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Stretch" 
+                              Margin="10,10"
+                              ItemsSource="{Binding Competitions}" 
+                              DisplayMemberPath="CityDate"
+                              IsSynchronizedWithCurrentItem="True"
+                              SelectedIndex="0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding DisplayApplicationsCommand}" CommandParameter="{Binding ElementName=ContestsComboBox, Path=SelectedItem}"/>

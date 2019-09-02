@@ -48,7 +48,7 @@
                   VerticalAlignment="Stretch" 
                   MinHeight="100">
             <DataGrid.Columns>
-                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
+                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name, TargetNullValue=(Введите название дополнительного поля)}"
                                                            Header="Название дополнительного поля"
                                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <DataGridCheckBoxColumn Binding="{Binding IsRequired}" 
