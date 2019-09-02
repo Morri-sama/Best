@@ -35,11 +35,13 @@ namespace WebApi.Data.DbContexts
                 new TeacherType { Id = 3, Name = "Руководитель" }
             );
 
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Best;Trusted_Connection=True;");
+            //optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Best;Trusted_Connection=True;");
+            optionsBuilder.UseMySql(@"Server=km888.beget.tech; Database=km888_api; Uid=km888_api; Pwd=Zxcv1337_");
         }
 
         public DbSet<Application> Applications { get; set; }
