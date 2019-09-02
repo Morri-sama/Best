@@ -72,10 +72,11 @@
                     DockPanel.Dock="Left"
                     HorizontalAlignment="Left"
                     Width="200"
-                    Height="Auto">
-            <StackPanel.Background>
+                    Height="Auto"
+                    Background="#FF64193F">
+            <!--<StackPanel.Background>
                 <ImageBrush ImageSource="/BestApp;component/Assets/background.jpg" Opacity="0.65"/>
-            </StackPanel.Background>
+            </StackPanel.Background>-->
 
             <StackPanel.Effect>
                 <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
