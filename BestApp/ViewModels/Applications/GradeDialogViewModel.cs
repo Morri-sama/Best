@@ -13,33 +13,9 @@ namespace BestApp.ViewModels.Applications
 {
     public class GradeDialogViewModel : ViewModelBase
     {
-
-
-
-        private List<Grade> _grades;
-        private readonly ApplicationsViewModel _applicationsViewModel;
-
-        public List<Grade> Grades
-        {
-            get
-            {
-                return _grades;
-            }
-            set
-            {
-                _grades = value;
-                RaisePropertyChanged("Grades");
-            }
-        }
-
-
-        public Contest Contest { get; set; }
-
-        public ICommand AcceptCommand { get; private set; }
-
         public GradeDialogViewModel(Contest contest, ApplicationsViewModel applicationsViewModel)
         {
-            _applicationsViewModel = applicationsViewModel;
+            this.applicationsViewModel = applicationsViewModel;
 
 
             Contest = contest;
@@ -51,6 +27,30 @@ namespace BestApp.ViewModels.Applications
             AcceptCommand = new RelayCommand(Accept);
         }
 
+
+        private List<Grade> grades;
+        private readonly ApplicationsViewModel applicationsViewModel;
+
+        public List<Grade> Grades
+        {
+            get
+            {
+                return grades;
+            }
+            set
+            {
+                grades = value;
+                RaisePropertyChanged("Grades");
+            }
+        }
+
+
+        public Contest Contest { get; set; }
+
+        public ICommand AcceptCommand { get; private set; }
+
+        
+
         private void Accept()
         {
             using (var context = new BestDbContext())
@@ -60,7 +60,7 @@ namespace BestApp.ViewModels.Applications
                 context.Contests.Update(x);
                 context.SaveChanges();
             }
-            _applicationsViewModel.IsOpen = false;
+            applicationsViewModel.IsOpen = false;
         }
 
 

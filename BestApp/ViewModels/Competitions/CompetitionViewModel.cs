@@ -14,7 +14,7 @@ namespace BestApp.ViewModels.Competitions
 {
     public class CompetitionViewModel : ViewModelBase
     {
-        private readonly IFrameNavigationService _navigator;
+        private readonly IFrameNavigationService navigator;
 
         public Competition Competition { get; set; }
 
@@ -23,7 +23,7 @@ namespace BestApp.ViewModels.Competitions
 
         public CompetitionViewModel(IFrameNavigationService navigator)
         {
-            _navigator = navigator;
+            this.navigator = navigator;
 
             Competition = new Competition();
 
@@ -39,12 +39,12 @@ namespace BestApp.ViewModels.Competitions
                 context.SaveChanges();
             }
 
-            _navigator.GoBack();
+            navigator.GoBack();
         }
 
         private void Back()
         {
-            _navigator.GoBack();
+            navigator.GoBack();
         }
     }
 }

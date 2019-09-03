@@ -25,16 +25,18 @@ namespace BestApp.ViewModels.Nominations
             Nomination = new Nomination();
 
             SaveCommand = new RelayCommand(Save);
+
             AddNominationAdditionalFieldCommand = new RelayCommand(AddNominationAdditionalField);
-            AddSubnominationCommand = new RelayCommand(AddSubnomination);
             DeleteNominationAdditionalFieldCommand = new RelayCommand<NominationAdditionalField>(DeleteNominationAdditionalField);
+
+            AddSubnominationCommand = new RelayCommand(AddSubnomination);
+            DeleteSubnominationCommand = new RelayCommand<Subnomination>(DeleteSubnomination);
         }
 
         public NominationViewModel(IFrameNavigationService navigator) : this()
         {
             this.navigator = navigator;
         }
-
 
         private readonly IFrameNavigationService navigator;
         private readonly BestDbContext context;
@@ -54,9 +56,12 @@ namespace BestApp.ViewModels.Nominations
         }
 
         public ICommand SaveCommand { get; private set; }
+
         public ICommand AddNominationAdditionalFieldCommand { get; private set; }
-        public ICommand AddSubnominationCommand { get; private set; }
         public ICommand DeleteNominationAdditionalFieldCommand { get; private set; }
+
+        public ICommand AddSubnominationCommand { get; private set; }
+        public ICommand DeleteSubnominationCommand { get; private set; }
 
 
         private void NominationViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -80,6 +85,11 @@ namespace BestApp.ViewModels.Nominations
             Nomination.Subnominations.Add(new Subnomination());
         }
 
+        private void DeleteSubnomination(Subnomination subnomination)
+        {
+            Nomination.Subnominations.Remove(subnomination);
+        }
+
         private void AddNominationAdditionalField()
         {
             Nomination.NominationAdditionalFields.Add(new NominationAdditionalField());
@@ -92,7 +102,26 @@ namespace BestApp.ViewModels.Nominations
 
         private void Save()
         {
+            for (int i = 0; i < Nomination.NominationAdditionalFields.Count; i++)
+            {
+                if (String.IsNullOrEmpty(Nomination.NominationAdditionalFields[i].Name))
+                {
+                    Nomination.NominationAdditionalFields.RemoveAt(i);
+                }
+            }
+
+            for (int i = 0; i < Nomination.Subnominations.Count; i++)
+            {
+                if (String.IsNullOrEmpty(Nomination.Subnominations[i].Name))
+                {
+                    Nomination.Subnominations.RemoveAt(i);
+                }
+            }
+            
+
             this.context.SaveChanges();
+
+            navigator.GoBack();
         }
     }
 }

@@ -1,88 +1,130 @@
 ﻿<Page x:Class="BestApp.Views.Nominations.NominationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:BestApp.Views.Nominations"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d"
+      d:DesignWidth="1280"
+      d:DesignHeight="720"
       Title="sssss"
       DataContext="{Binding Source={StaticResource Locator}, Path=NominationViewModel}"
       Background="gray">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="7*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
-        </Grid.RowDefinitions>
-
-
-        <StackPanel Grid.Row="0">
-            <TextBox materialDesign:HintAssist.Hint="Название номинации"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 HorizontalAlignment="Stretch" 
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Top"
-                 Text="{Binding Nomination.Name}"
-                 Margin="10,10"/>
-            <TextBox materialDesign:HintAssist.Hint="Приоритет"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 HorizontalAlignment="Stretch" 
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Top"
-                 Text="{Binding Nomination.Priority}"
-                 Margin="10,10"/>
-        </StackPanel>
-        <DataGrid x:Name="NominationAdditionalFieldsGrid"
-                  Grid.Row="1" 
-                  ItemsSource="{Binding Nomination.NominationAdditionalFields}" 
-                  Margin="10,10" 
-                  AutoGenerateColumns="False" 
-                  CanUserAddRows="False" 
-                  VerticalAlignment="Stretch" 
-                  MinHeight="100">
-            <DataGrid.Columns>
-                <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name, TargetNullValue=(Введите название дополнительного поля)}"
-                                                           Header="Название дополнительного поля"
-                                                           EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <DataGridCheckBoxColumn Binding="{Binding IsRequired}" 
-                                        Header="Обязательно для заполнения"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
-                <DataGridCheckBoxColumn Binding="{Binding IsPrinted}" 
-                                        Header="Печатается"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"/>
-                <DataGridTemplateColumn Header="Действия">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Удалить" 
-                                    Style="{DynamicResource MaterialDesignFlatButton}"    
-                                    Command="{Binding ElementName=NominationAdditionalFieldsGrid, Path=DataContext.DeleteNominationAdditionalFieldCommand}"
-                                    CommandParameter="{Binding}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding AddNominationAdditionalFieldCommand}">Добавить дополнительное поле</Button>
-        <StackPanel Grid.Row="2">
-            <Button Margin="10,10" HorizontalAlignment="Right" Command="{Binding AddSubnominationCommand}">Добавить подноминацию</Button>
-            <DataGrid ItemsSource="{Binding Nomination.Subnominations}" 
-                  Margin="10,10">
+    <md:Card Margin="40,40"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition MinWidth="250"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="160"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2">
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="MaterialDesignIconButton">
+                    <md:PackIcon Kind="FileMusic" />
+                </Button>
+                <TextBox md:HintAssist.Hint="Название номинации"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         HorizontalAlignment="Stretch"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Top"
+                         Text="{Binding Nomination.Name}"
+                         Margin="10,10" />
+                <TextBox md:HintAssist.Hint="Приоритет"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         HorizontalAlignment="Stretch"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Top"
+                         Text="{Binding Nomination.Priority}"
+                         Margin="10,10" />
+            </StackPanel>
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="10,10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding AddNominationAdditionalFieldCommand}"
+                    Content="Добавить дополнительное поле" />
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="10,10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding AddSubnominationCommand}"
+                    Content="Добавить подноминацию" />
+            <DataGrid x:Name="nominationAdditionalFieldsGrid"
+                      Grid.Row="2"
+                      Grid.Column="0"
+                      ItemsSource="{Binding Nomination.NominationAdditionalFields}"
+                      Margin="10,20"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      VerticalAlignment="Stretch"
+                      MinHeight="100">
                 <DataGrid.Columns>
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}" 
-                                                           Header="Название подноминации"
-                                                           EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                    <md:MaterialDataGridTextColumn Binding="{Binding Name, TargetNullValue=(Введите название дополнительного поля)}"
+                                                   Header="Название дополнительного поля"
+                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                    <DataGridCheckBoxColumn Binding="{Binding IsRequired}"
+                                            Header="Обязательно для заполнения"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}" />
+                    <DataGridCheckBoxColumn Binding="{Binding IsPrinted}"
+                                            Header="Печатается"
+                                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}" />
+                    <DataGridTemplateColumn Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Удалить"
+                                        Style="{DynamicResource MaterialDesignFlatButton}"
+                                        Command="{Binding ElementName=nominationAdditionalFieldsGrid, Path=DataContext.DeleteNominationAdditionalFieldCommand}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="Сохранить" Margin="10,10" HorizontalAlignment="Right" Command="{Binding SaveCommand}"></Button>
-        </StackPanel>
-    </Grid>
+            <DataGrid x:Name="subnominationsGrid"
+                      Grid.Row="2"
+                      Grid.Column="1"
+                      ItemsSource="{Binding Nomination.Subnominations}"
+                      Margin="10,20"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      VerticalAlignment="Stretch"
+                      MinHeight="100">
+                <DataGrid.Columns>
+                    <md:MaterialDataGridTextColumn Binding="{Binding Name, TargetNullValue=(Введите название подноминации)}"
+                                                   Header="Название подноминации"
+                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                    <DataGridTemplateColumn Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Удалить"
+                                        Style="{DynamicResource MaterialDesignFlatButton}"
+                                        Command="{Binding ElementName=subnominationsGrid, Path=DataContext.DeleteSubnominationCommand}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="3"
+                    Grid.Column="1"
+                    Content="Сохранить"
+                    Margin="10,10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding SaveCommand}" />
+        </Grid>
+    </md:Card>
 </Page>

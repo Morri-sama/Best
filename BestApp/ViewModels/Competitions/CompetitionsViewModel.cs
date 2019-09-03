@@ -38,6 +38,7 @@ namespace BestApp.ViewModels.Competitions
         private readonly IFrameNavigationService navigator;
         private readonly BestDbContext context;
 
+        public ICommand NewCompetitionCommand { get; private set; }
 
         private ObservableCollection<Competition> competitions;
         public ObservableCollection<Competition> Competitions
@@ -53,9 +54,6 @@ namespace BestApp.ViewModels.Competitions
                 RaisePropertyChanged("Competitions");
             }
         }
-
-        public ICommand NewCompetitionCommand { get; private set; }
-
 
 
         private void NewCompetition()
