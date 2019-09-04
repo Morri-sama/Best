@@ -25,6 +25,7 @@ namespace BestApp.ViewModels.Nominations
             Nomination = new Nomination();
 
             SaveCommand = new RelayCommand(Save);
+            BackCommand = new RelayCommand(Back);
 
             AddNominationAdditionalFieldCommand = new RelayCommand(AddNominationAdditionalField);
             DeleteNominationAdditionalFieldCommand = new RelayCommand<NominationAdditionalField>(DeleteNominationAdditionalField);
@@ -56,6 +57,7 @@ namespace BestApp.ViewModels.Nominations
         }
 
         public ICommand SaveCommand { get; private set; }
+        public ICommand BackCommand { get; private set; }
 
         public ICommand AddNominationAdditionalFieldCommand { get; private set; }
         public ICommand DeleteNominationAdditionalFieldCommand { get; private set; }
@@ -120,7 +122,14 @@ namespace BestApp.ViewModels.Nominations
             
 
             this.context.SaveChanges();
+            this.context.Dispose();
 
+            navigator.GoBack();
+        }
+
+        private void Back()
+        {
+            this.context.Dispose();
             navigator.GoBack();
         }
     }

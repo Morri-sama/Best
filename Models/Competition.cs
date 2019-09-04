@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,33 +11,72 @@ namespace Models
     public class Competition : PropertyChangedBase
     {
         #region Fields
-        private int _id;
-        private string _city;
-        private DateTime _date;
-        private bool _isClosed;
-        private int _diplomaNumber;
-        private int _diplomaNumberDigits;
+        private int id;
+        private string name;
+        private string city;
+        private DateTime date;
+        private bool isClosed;
+        private int diplomaNumber;
+        private int diplomaNumberDigits;
+        private ObservableCollection<Application> applications;
         #endregion
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get { return _id; } set { Notify(ref _id, value, "Id"); } }
+        public int Id
+        {
+            get => id;
+            set => Notify(ref id, value);
+        }
 
         [Required]
-        public string City { get { return _city; } set { Notify(ref _city, value, "City"); } }
-        [Required]
-        public DateTime Date { get { return _date; } set { Notify(ref _date, value, "Date"); } }
+        public string Name
+        {
+            get => name;
+            set => Notify(ref name, value);
+        }
 
-        public bool IsClosed { get { return _isClosed; } set { Notify(ref _isClosed, value, "IsClosed"); } }
+        [Required]
+        public string City
+        {
+            get => city;
+            set => Notify(ref city, value);
+        }
 
         [Required]
-        public int DiplomaNumber { get { return _diplomaNumber; } set { Notify(ref _diplomaNumber, value, "DiplomaNumber"); } }
+        public DateTime Date
+        {
+            get => date;
+            set => Notify(ref date, value);
+        }
+
+        public bool IsClosed
+        {
+            get => isClosed;
+            set => Notify(ref isClosed, value);
+        }
+
         [Required]
-        public int DiplomaNumberDigits { get { return _diplomaNumberDigits; } set { Notify(ref _diplomaNumberDigits, value, "DiplomaNumberDigits"); } }
+        public int DiplomaNumber
+        {
+            get => diplomaNumber;
+            set => Notify(ref diplomaNumber, value);
+        }
+
+        [Required]
+        public int DiplomaNumberDigits
+        {
+            get => diplomaNumberDigits;
+            set => Notify(ref diplomaNumberDigits, value);
+        }
 
         [NotMapped]
         public string CityDate { get => City + " " + Date.ToString("dd.MM.yyyy"); }
 
-        public virtual ICollection<Application> Applications { get; set; }
+        public virtual ObservableCollection<Application> Applications
+        {
+            get => applications;
+            set => Notify(ref applications, value);
+        }
     }
 }

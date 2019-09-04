@@ -14,6 +14,20 @@ namespace BestApp.ViewModels.Competitions
 {
     public class CompetitionViewModel : ViewModelBase
     {
+        private CompetitionViewModel()
+        {
+            Competition = new Competition();
+
+            SaveCommand = new RelayCommand(Save);
+            BackCommand = new RelayCommand(Back);
+        }
+
+        public CompetitionViewModel(IFrameNavigationService navigator) : this()
+        {
+            this.navigator = navigator;
+
+        }
+
         private readonly IFrameNavigationService navigator;
 
         public Competition Competition { get; set; }
@@ -21,15 +35,7 @@ namespace BestApp.ViewModels.Competitions
         public ICommand SaveCommand { get; private set; }
         public ICommand BackCommand { get; private set; }
 
-        public CompetitionViewModel(IFrameNavigationService navigator)
-        {
-            this.navigator = navigator;
 
-            Competition = new Competition();
-
-            SaveCommand = new RelayCommand(Save);
-            BackCommand = new RelayCommand(Back);
-        }
 
         private void Save()
         {

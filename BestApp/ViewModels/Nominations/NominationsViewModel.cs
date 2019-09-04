@@ -36,9 +36,6 @@ namespace BestApp.ViewModels.Nominations
             this.navigator = navigator;            
         }
 
-
-
-
         private readonly IFrameNavigationService navigator;
         private readonly BestDbContext context;
         private ObservableCollection<Nomination> nominations;

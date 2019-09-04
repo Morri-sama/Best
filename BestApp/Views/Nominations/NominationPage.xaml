@@ -119,12 +119,19 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Grid.Row="3"
-                    Grid.Column="1"
-                    Content="Сохранить"
-                    Margin="10,10"
-                    HorizontalAlignment="Right"
-                    Command="{Binding SaveCommand}" />
+            <StackPanel Grid.Row="3"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        FlowDirection="RightToLeft">
+                <Button Content="Сохранить"
+                        Margin="10,10"
+                        Command="{Binding SaveCommand}" />
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        Margin="10,10"
+                        Content="Назад"
+                        Command="{Binding BackCommand}" />
+            </StackPanel>
+
         </Grid>
     </md:Card>
 </Page>

@@ -21,7 +21,7 @@ namespace BestApp.ViewModels.Competitions
         private CompetitionsViewModel()
         {
             this.context = new BestDbContext();
-            this.context.Competitions.Load();
+            this.context.Competitions.Where(o=>o.IsClosed == false).Load();
 
             Competitions = this.context.Competitions.Local.ToObservableCollection();
 
@@ -31,8 +31,6 @@ namespace BestApp.ViewModels.Competitions
         public CompetitionsViewModel(IFrameNavigationService navigator) : this()
         {
             this.navigator = navigator;          
-
-           // Competitions = new ObservableCollection<Competition>(context.Competitions.Include(c => c.Applications).OrderBy(o => o.Date));
         }
 
         private readonly IFrameNavigationService navigator;
