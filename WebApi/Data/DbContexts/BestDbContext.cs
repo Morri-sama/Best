@@ -53,6 +53,7 @@ namespace WebApi.Data.DbContexts
         public DbSet<TeacherType> TeacherTypes { get; set; }
         public DbSet<NominationAdditionalField> NominationAdditionalFields { get; set; }
         public DbSet<NominationAdditionalFieldValue> NominationAdditionalFieldValues { get; set; }
+        public DbSet<NominationAdditionalFieldValueOption> NominationAdditionalFieldValueOptions { get; set; }
         public DbSet<Contest> Contests { get; set; }
         public DbSet<Grade> Grades { get; set; }
     }

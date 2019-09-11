@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -64,7 +65,7 @@ namespace WebApi.Controllers
         [Route("GetNominationAdditionalFields")]
         public ActionResult<List<NominationAdditionalField>> GetNominationAdditionalFields(int nominationId)
         {
-            List<NominationAdditionalField> nominationAdditionalFields = context.NominationAdditionalFields.Where(d => d.NominationId == nominationId).ToList();
+            List<NominationAdditionalField> nominationAdditionalFields = context.NominationAdditionalFields.Where(d => d.NominationId == nominationId).Include(p=>p.NominationAdditionalFieldValueOptions).ToList();
 
             return nominationAdditionalFields;
         }
