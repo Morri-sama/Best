@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Models
         private string name;
         private bool isRequired;
         private bool isPrinted;
+        private bool isCustomValueAllowed;
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -66,9 +68,24 @@ namespace Models
             }
         }
 
+        [Required]
+        public bool IsCustomValueAllowed
+        {
+            get
+            {
+                return isCustomValueAllowed;
+            }
+            set
+            {
+                Notify(ref isCustomValueAllowed, value);
+            }
+        }
+
 
         [ForeignKey("Nomination")]
         public int NominationId { get; set; }
         public virtual Nomination Nomination { get; set; }
+
+        public ObservableCollection<NominationAdditionalFieldValueOption> NominationAdditionalFieldValueOptions { get; set; }
     }
 }

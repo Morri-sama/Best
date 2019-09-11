@@ -30,6 +30,9 @@ namespace BestApp.ViewModels.Nominations
             AddNominationAdditionalFieldCommand = new RelayCommand(AddNominationAdditionalField);
             DeleteNominationAdditionalFieldCommand = new RelayCommand<NominationAdditionalField>(DeleteNominationAdditionalField);
 
+            AddNominationAdditionalFieldValueOptionCommand = new RelayCommand<NominationAdditionalField>(AddNominationAdditionalFieldValueOption);
+            DeleteNominationAdditionalFieldValueOptionCommand = new RelayCommand<NominationAdditionalFieldValueOption>(DeleteNominationAdditionalFieldValueOption);
+
             AddSubnominationCommand = new RelayCommand(AddSubnomination);
             DeleteSubnominationCommand = new RelayCommand<Subnomination>(DeleteSubnomination);
         }
@@ -62,6 +65,9 @@ namespace BestApp.ViewModels.Nominations
         public ICommand AddNominationAdditionalFieldCommand { get; private set; }
         public ICommand DeleteNominationAdditionalFieldCommand { get; private set; }
 
+        public ICommand AddNominationAdditionalFieldValueOptionCommand { get; private set; }
+        public ICommand DeleteNominationAdditionalFieldValueOptionCommand { get; private set; }
+
         public ICommand AddSubnominationCommand { get; private set; }
         public ICommand DeleteSubnominationCommand { get; private set; }
 
@@ -75,8 +81,9 @@ namespace BestApp.ViewModels.Nominations
                         this.context.Nominations.Local.Clear();
                         this.context.Attach(Nomination);
 
-                        this.context.Entry(Nomination).Collection(r => r.NominationAdditionalFields).Load();
+                        this.context.Entry(Nomination).Collection(r => r.NominationAdditionalFields).Query().Include(w=>w.NominationAdditionalFieldValueOptions).Load();
                         this.context.Entry(Nomination).Collection(r => r.Subnominations).Load();
+
                     }
                     break;
             }
@@ -102,6 +109,16 @@ namespace BestApp.ViewModels.Nominations
             Nomination.NominationAdditionalFields.Remove(nominationAdditionalField);
         }
 
+        private void AddNominationAdditionalFieldValueOption(NominationAdditionalField nominationAdditionalField)
+        {
+            nominationAdditionalField.NominationAdditionalFieldValueOptions.Add(new NominationAdditionalFieldValueOption());
+        }
+
+        private void DeleteNominationAdditionalFieldValueOption(NominationAdditionalFieldValueOption nominationAdditionalFieldValueOption)
+        {
+            Nomination.NominationAdditionalFields.Where(i => i.Id == nominationAdditionalFieldValueOption.NominationAdditionalFieldId).FirstOrDefault().NominationAdditionalFieldValueOptions.Remove(nominationAdditionalFieldValueOption);
+        }
+
         private void Save()
         {
             for (int i = 0; i < Nomination.NominationAdditionalFields.Count; i++)
@@ -117,6 +134,17 @@ namespace BestApp.ViewModels.Nominations
                 if (String.IsNullOrEmpty(Nomination.Subnominations[i].Name))
                 {
                     Nomination.Subnominations.RemoveAt(i);
+                }
+            }
+
+            foreach(var item in Nomination.NominationAdditionalFields)
+            {
+                for (int i = 0; i < item.NominationAdditionalFieldValueOptions.Count; i++)
+                {
+                    if (String.IsNullOrEmpty(item.NominationAdditionalFieldValueOptions[i].Value))
+                    {
+                        item.NominationAdditionalFieldValueOptions.RemoveAt(i);
+                    }
                 }
             }
             

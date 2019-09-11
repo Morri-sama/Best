@@ -24,7 +24,7 @@
                     Content="Обновить"
                     Command="{Binding RefreshCommand}" />
             <md:PopupBox>
-                <Button Content="Добавить номинацию"
+                <Button Content="Добавить жанр"
                         Command="{Binding NewNominationCommand}" />
             </md:PopupBox>
         </StackPanel>

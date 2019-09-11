@@ -17,7 +17,8 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\LifarenkoKO\Desktop\BestApp\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -27,10 +28,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -52,6 +53,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>88ACDEB629C10526CDC77FAD52036E25DDA0FDBE</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>BestApp_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -335,6 +348,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\BestDbContext.cs" />
+    <Compile Include="Migrations\20190911083121_Initial Migration.cs" />
+    <Compile Include="Migrations\20190911083121_Initial Migration.designer.cs">
+      <DependentUpon>20190911083121_Initial Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190911083329_NominationAdditionalFieldValueOptions table is created.cs" />
+    <Compile Include="Migrations\20190911083329_NominationAdditionalFieldValueOptions table is created.designer.cs">
+      <DependentUpon>20190911083329_NominationAdditionalFieldValueOptions table is created.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20190911084046_new column IsCustomValueAllowed.cs" />
+    <Compile Include="Migrations\20190911084046_new column IsCustomValueAllowed.designer.cs">
+      <DependentUpon>20190911084046_new column IsCustomValueAllowed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\BestDbContextModelSnapshot.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Reports\Diploma\DiplomaViewModel.cs" />
     <Compile Include="Services\Navigation\FrameNavigationService.cs" />
