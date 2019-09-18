@@ -17,15 +17,9 @@
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition MinWidth="250"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="160"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
@@ -51,24 +45,11 @@
                          Text="{Binding Nomination.Priority}"
                          Margin="10,10" />
             </StackPanel>
-            <Button Grid.Row="1"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="10,10"
-                    HorizontalAlignment="Right"
-                    Command="{Binding AddNominationAdditionalFieldCommand}"
-                    Content="Добавить дополнительное поле" />
-            <Button Grid.Row="3"
-                    Grid.Column="1"
-                    Margin="10,10"
-                    HorizontalAlignment="Right"
-                    Command="{Binding AddSubnominationCommand}"
-                    Content="Добавить номинацию" />
+
             <DataGrid x:Name="nominationAdditionalFieldsGrid"
                       Grid.Row="2"
-                      Grid.Column="0"
-                      Grid.ColumnSpan="2"
                       ItemsSource="{Binding Nomination.NominationAdditionalFields}"
+                      RowDetailsVisibilityMode="VisibleWhenSelected"
                       Margin="10,20"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
@@ -100,63 +81,74 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="">
+
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Stretch" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding ElementName=nominationAdditionalFieldsGrid, Path=DataContext.AddNominationAdditionalFieldCommand}"
+                                        Content="Добавить дополнительное поле"
+                                        Style="{DynamicResource MaterialDesignFlatButton}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Удалить"
                                         Style="{DynamicResource MaterialDesignFlatButton}"
                                         Command="{Binding ElementName=nominationAdditionalFieldsGrid, Path=DataContext.DeleteNominationAdditionalFieldCommand}"
                                         CommandParameter="{Binding}" />
-
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
                 <DataGrid.RowDetailsTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <DataGrid Grid.Row="0"
-                                      x:Name="nominationAdditionalFieldValueOptionsGrid"
-                                      Margin="10,20"
-                                      AutoGenerateColumns="False"
-                                      CanUserAddRows="False"
-                                      VerticalAlignment="Stretch"
-                                      MinHeight="100"
-                                      ItemsSource="{Binding ElementName=nominationAdditionalFieldsGrid, Path=SelectedItem.NominationAdditionalFieldValueOptions}">
-                                <DataGrid.Columns>
-                                    <md:MaterialDataGridTextColumn Binding="{Binding Value, TargetNullValue=(Введите возможное значение дополнительного поля)}"
-                                                                   Header="Возможное значение"
-                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                                    <DataGridTemplateColumn>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Content="Удалить"
-                                                        Style="{DynamicResource MaterialDesignFlatButton}"
-                                                        Command="{Binding ElementName=nominationAdditionalFieldValueOptionsGrid, Path=DataContext.DeleteNominationAdditionalFieldValueOptionCommand}"
-                                                        CommandParameter="{Binding}" />
+                        <DataGrid x:Name="nominationAdditionalFieldValueOptionsGrid"
+                                  DockPanel.Dock="Top"
+                                  AutoGenerateColumns="False"
+                                  CanUserSortColumns="True"
+                                  CanUserAddRows="False"
+                                  md:DataGridAssist.CellPadding="4 2 2 2"
+                                  md:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                                  VerticalAlignment="Top"
+                                  HorizontalAlignment="Stretch"
+                                  MinHeight="100"
+                                  MaxHeight="200"
+                                  VerticalScrollBarVisibility="Auto"
+                                  ItemsSource="{Binding ElementName=nominationAdditionalFieldsGrid, Path=SelectedItem.NominationAdditionalFieldValueOptions}">
+                            <DataGrid.Columns>
+                                <md:MaterialDataGridTextColumn Binding="{Binding Value, TargetNullValue=(Введите возможное значение дополнительного поля)}"
+                                                               Header="Возможное значение"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Удалить"
+                                                    Style="{DynamicResource MaterialDesignFlatButton}"
+                                                    Command="{Binding ElementName=nominationAdditionalFieldsGrid, Path=DataContext.DeleteNominationAdditionalFieldValueOptionCommand}"
+                                                    CommandParameter="{Binding}"/>
 
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-                                </DataGrid.Columns>
+                            </DataGrid.Columns>
 
-                            </DataGrid>
-                        </Grid>
-
-
-
+                        </DataGrid>
 
                     </DataTemplate>
                 </DataGrid.RowDetailsTemplate>
             </DataGrid>
+
             <DataGrid x:Name="subnominationsGrid"
-                      Grid.Row="4"
-                      Grid.ColumnSpan="2"
-                      Grid.Column="0"
+                      Grid.Row="1"
                       ItemsSource="{Binding Nomination.Subnominations}"
                       Margin="10,20"
                       AutoGenerateColumns="False"
@@ -167,7 +159,23 @@
                     <md:MaterialDataGridTextColumn Binding="{Binding Name, TargetNullValue=(Введите название номинации)}"
                                                    Header="Название номинации"
                                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                    <DataGridTemplateColumn Header="Действия">
+
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Stretch" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding ElementName=subnominationsGrid, Path=DataContext.AddSubnominationCommand}"
+                                        Content="Добавить номинацию"
+                                        Style="{DynamicResource MaterialDesignFlatButton}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Удалить"
@@ -177,10 +185,10 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
-            <StackPanel Grid.Row="5"
-                        Grid.Column="1"
+            <StackPanel Grid.Row="3"
                         Orientation="Horizontal"
                         FlowDirection="RightToLeft">
                 <Button Content="Сохранить"

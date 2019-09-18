@@ -74,9 +74,7 @@
                               HorizontalAlignment="Stretch"
                               Margin="10,10"
                               ItemsSource="{Binding Competitions}"
-                              DisplayMemberPath="CityDate"
-                              IsSynchronizedWithCurrentItem="True"
-                              SelectedIndex="0">
+                              DisplayMemberPath="CityDate">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding DisplayApplicationsCommand}"

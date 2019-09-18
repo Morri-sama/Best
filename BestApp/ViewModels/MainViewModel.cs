@@ -37,7 +37,7 @@ namespace BestApp.ViewModels
             {
                 new MenuItem("Конкурсы", PackIconKind.City, DisplayCompetitionsCommand),
                 new MenuItem("Заявки", PackIconKind.FileDocument, DisplayApplicationsCommand),
-                new MenuItem("Номинации", PackIconKind.FileMusic, DisplayNominationsCommand),
+                new MenuItem("Жанры", PackIconKind.FileMusic, DisplayNominationsCommand),
                 new MenuItem("Настройки", PackIconKind.Settings, DisplaySettingsCommand)
             };
         }
