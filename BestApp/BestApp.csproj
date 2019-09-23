@@ -371,11 +371,13 @@
     <Compile Include="ViewModels\Applications\GradeDialogViewModel.cs" />
     <Compile Include="ViewModels\Competitions\CompetitionsViewModel.cs" />
     <Compile Include="ViewModels\Competitions\CompetitionViewModel.cs" />
+    <Compile Include="ViewModels\Grades\GradesViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Nominations\NominationsViewModel.cs" />
     <Compile Include="ViewModels\Nominations\NominationViewModel.cs" />
     <Compile Include="ViewModels\Printing\DiplomasPrintingViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\Applications\ApplicationsPage.xaml.cs">
       <DependentUpon>ApplicationsPage.xaml</DependentUpon>
@@ -388,6 +390,9 @@
     </Compile>
     <Compile Include="Views\Competitions\CompetitionsPage.xaml.cs">
       <DependentUpon>CompetitionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Grades\GradesPage.xaml.cs">
+      <DependentUpon>GradesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -426,6 +431,10 @@
     <Page Include="Views\Competitions\CompetitionsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Grades\GradesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
