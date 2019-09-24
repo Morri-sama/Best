@@ -49,18 +49,9 @@ namespace BestApp.ViewModels.Nominations
 
         public ObservableCollection<Nomination> Nominations
         {
-            get
-            {
-                return this.nominations;
-            }
-            private set
-            {
-                this.nominations = value;
-                RaisePropertyChanged("Nominations");
-            }
+            get => nominations;
+            private set => Notify(ref nominations, value);
         }
-
-
 
         private void Delete(Nomination nomination)
         {

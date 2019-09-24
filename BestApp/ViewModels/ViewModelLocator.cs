@@ -2,6 +2,7 @@
 using BestApp.Services.Navigation;
 using BestApp.ViewModels.Applications;
 using BestApp.ViewModels.Competitions;
+using BestApp.ViewModels.Grades;
 using BestApp.ViewModels.Nominations;
 using BestApp.ViewModels.Settings;
 using CommonServiceLocator;
@@ -31,6 +32,7 @@ namespace BestApp.ViewModels
 
             SimpleIoc.Default.Register<ApplicationsViewModel>();
 
+            SimpleIoc.Default.Register<GradesViewModel>();
 
             SimpleIoc.Default.Register<SettingsViewModel>();
 
@@ -39,23 +41,34 @@ namespace BestApp.ViewModels
 
         public MainViewModel Main { get => ServiceLocator.Current.GetInstance<MainViewModel>(); }
 
-        public CompetitionsViewModel CompetitionsViewModel { get => ServiceLocator.Current.GetInstance<CompetitionsViewModel>(); }
-        public CompetitionViewModel CompetitionViewModel { get => ServiceLocator.Current.GetInstance<CompetitionViewModel>(); }
-
-        public NominationsViewModel NominationsViewModel { get => ServiceLocator.Current.GetInstance<NominationsViewModel>(); }
-        public NominationViewModel NominationViewModel
+        public CompetitionsViewModel CompetitionsViewModel
         {
-            get
-            {
-                return SimpleIoc.Default.GetInstanceWithoutCaching<NominationViewModel>();
-            }
+            get => ServiceLocator.Current.GetInstance<CompetitionsViewModel>();
+        }
+        public CompetitionViewModel CompetitionViewModel
+        {
+            get => ServiceLocator.Current.GetInstance<CompetitionViewModel>();
         }
 
+        public NominationsViewModel NominationsViewModel
+        {
+            get => ServiceLocator.Current.GetInstance<NominationsViewModel>();
+        }
 
-        public ApplicationsViewModel ApplicationsViewModel { get => ServiceLocator.Current.GetInstance<ApplicationsViewModel>(); }
+        public NominationViewModel NominationViewModel
+        {
+            get => SimpleIoc.Default.GetInstanceWithoutCaching<NominationViewModel>();
+        }
 
+        public ApplicationsViewModel ApplicationsViewModel
+        {
+            get => ServiceLocator.Current.GetInstance<ApplicationsViewModel>();
+        }
 
-        public SettingsViewModel SettingsViewModel { get => ServiceLocator.Current.GetInstance<SettingsViewModel>(); }
+        public SettingsViewModel SettingsViewModel
+        {
+            get => ServiceLocator.Current.GetInstance<SettingsViewModel>();
+        }
 
         private static void SetupNavigation()
         {
@@ -68,6 +81,7 @@ namespace BestApp.ViewModels
 
             navigationService.Configure("Applications", new Uri("../Views/Applications/ApplicationsPage.xaml", UriKind.Relative));
 
+            navigationService.Configure("Grades", new Uri("../Views/Grades/GradesPage.xaml", UriKind.Relative));
 
             navigationService.Configure("Settings", new Uri("../Views/Settings/SettingsPage.xaml", UriKind.Relative));
 

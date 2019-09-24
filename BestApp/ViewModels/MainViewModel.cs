@@ -20,6 +20,7 @@ namespace BestApp.ViewModels
         public ICommand DisplayCompetitionsCommand { get; private set; }
         public ICommand DisplayNominationsCommand { get; private set; }
         public ICommand DisplayApplicationsCommand { get; private set; }
+        public ICommand DisplayGradesCommand { get; private set; }
         public ICommand DisplaySettingsCommand { get; private set; }
 
         public List<MenuItem> MenuItems { get; private set; }
@@ -31,6 +32,7 @@ namespace BestApp.ViewModels
             DisplayCompetitionsCommand = new RelayCommand(DisplayCompetitions);
             DisplayNominationsCommand = new RelayCommand(DisplayNominations);
             DisplayApplicationsCommand = new RelayCommand(DisplayApplications);
+            DisplayGradesCommand = new RelayCommand(DisplayGrades);
             DisplaySettingsCommand = new RelayCommand(DisplaySettings);
 
             MenuItems = new List<MenuItem>
@@ -38,8 +40,14 @@ namespace BestApp.ViewModels
                 new MenuItem("Конкурсы", PackIconKind.City, DisplayCompetitionsCommand),
                 new MenuItem("Заявки", PackIconKind.FileDocument, DisplayApplicationsCommand),
                 new MenuItem("Жанры", PackIconKind.FileMusic, DisplayNominationsCommand),
+                new MenuItem("Оценки", PackIconKind.Grade, DisplayGradesCommand),
                 new MenuItem("Настройки", PackIconKind.Settings, DisplaySettingsCommand)
             };
+        }
+
+        private void DisplayGrades()
+        {
+            navigator.NavigateTo("Grades");
         }
 
         private void DisplaySettings()
