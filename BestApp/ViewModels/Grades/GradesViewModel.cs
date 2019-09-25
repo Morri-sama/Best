@@ -53,16 +53,13 @@ namespace BestApp.ViewModels.Grades
 
         private void NewGrade()
         {
-            throw new NotImplementedException();
+            this.navigator.NavigateTo("Grade");
         }
-
 
         public ObservableCollection<Grade> Grades
         {
             get => grades;
             set => Notify(ref grades, value);
         }
-
-
     }
 }

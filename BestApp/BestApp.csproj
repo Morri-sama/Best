@@ -372,6 +372,7 @@
     <Compile Include="ViewModels\Competitions\CompetitionsViewModel.cs" />
     <Compile Include="ViewModels\Competitions\CompetitionViewModel.cs" />
     <Compile Include="ViewModels\Grades\GradesViewModel.cs" />
+    <Compile Include="ViewModels\Grades\GradeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Nominations\NominationsViewModel.cs" />
     <Compile Include="ViewModels\Nominations\NominationViewModel.cs" />
