@@ -17,6 +17,7 @@
         <CollectionViewSource Source="{Binding Contests}"
                               x:Key="contestsView">
             <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Subnomination.Nomination.Priority" />
                 <componentModel:SortDescription PropertyName="Application.AgeCategory.Priority" />
             </CollectionViewSource.SortDescriptions>
             <CollectionViewSource.GroupDescriptions>
@@ -102,10 +103,14 @@
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Application.ParticipantFullName}"
                                                 Header="ФИО участника" />
-                                <GridViewColumn DisplayMemberBinding="{Binding Grade.Name}"
-                                                Header="Оценка" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Application.AgeCategory.Name}"
                                                 Header="Возрастная категория" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Grade.Name}"
+                                                Header="Оценка" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Subnomination.Nomination.Name}"
+                                                Header="Жанр" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Subnomination.Name}"
+                                                Header="Номинация" />
                                 <GridViewColumn>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>

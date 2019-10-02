@@ -16,6 +16,8 @@ namespace BestApp.Reports.Diploma
         public string Subnomination { get; set; }
         public string Composition { get; set; }
         public string TeacherName { get; set; }
+        public string TeacherType { get; set; }
         public string City { get; set; }
+        public string Grade { get; set; }
     }
 }

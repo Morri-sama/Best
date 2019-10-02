@@ -3,6 +3,7 @@ using BestApp.Reports.Diploma;
 using BestApp.Services.Navigation;
 using BestApp.Services.Printing;
 using BestApp.Views.Applications;
+using BestApp.Views.Reporting;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MaterialDesignThemes.Wpf;
@@ -23,15 +24,17 @@ namespace BestApp.ViewModels.Applications
 {
     public class ApplicationsViewModel : ViewModelBase
     {
-        public ApplicationsViewModel(IFrameNavigationService navigator, BestDbContext context)
+        public ApplicationsViewModel(IFrameNavigationService navigator)
         {
-            _navigator = navigator;
-            _context = context;
+            this.navigator = navigator;
 
-            Competitions = _context.Competitions.Where(c => c.IsClosed == false).OrderBy(o => o.Date).ToList();
+
+            this.context = new BestDbContext();
+
+            Competitions = context.Competitions.Where(c => c.IsClosed == false).OrderBy(o => o.Date).ToList();
 
             Printers = new List<string>();
-            foreach(string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
             {
                 Printers.Add(printer);
             }
@@ -63,31 +66,20 @@ namespace BestApp.ViewModels.Applications
             Console.WriteLine("You can intercept the closing event, and cancel here.");
         }
 
-        private readonly IFrameNavigationService _navigator;
-        private readonly BestDbContext _context;
+        private readonly IFrameNavigationService navigator;
+        private readonly BestDbContext context;
         private ObservableCollection<Contest> _contests;
         private IList<Competition> _competitions;
-        private Contest _selectedContest;
+        private Contest selectedContest;
         private string _selectedPrinter;
 
 
-        private bool _isOpen;
+        private bool isOpen;
         public bool IsOpen
         {
-            get
-            {
-                return _isOpen;
-            }
-            set
-            {
-                _isOpen = value;
-                RaisePropertyChanged("IsOpen");
-            }
+            get => isOpen;
+            set => Notify(ref isOpen, value);
         }
-
-
-
-
 
         public List<string> Printers { get; set; }
 
@@ -99,7 +91,7 @@ namespace BestApp.ViewModels.Applications
             }
             set
             {
-                if(_selectedPrinter != value)
+                if (_selectedPrinter != value)
                 {
                     _selectedPrinter = value;
                     RaisePropertyChanged("SelectedPrinter");
@@ -134,15 +126,8 @@ namespace BestApp.ViewModels.Applications
 
         public Contest SelectedContest
         {
-            get
-            {
-                return _selectedContest;
-            }
-            set
-            {
-                _selectedContest = value;
-                RaisePropertyChanged("SelectedContest");
-            }
+            get => selectedContest;
+            set => Notify(ref selectedContest, value);
         }
 
         public ICommand DisplayApplicationsCommand { get; private set; }
@@ -153,7 +138,12 @@ namespace BestApp.ViewModels.Applications
 
         private void DisplayApplications(Competition competition)
         {
-            Contests = new ObservableCollection<Contest>(_context.Contests.Include(a => a.Application).ThenInclude(p=>p.AgeCategory).Include(d=>d.Grade).Where(c => c.Application.Competition.Id == competition.Id));
+            context.Applications.Local.Clear();
+            context.Applications.Where(c => c.Competition.Id == competition.Id).Load();
+
+            Contests = new ObservableCollection<Contest>(context.Contests.Include(a => a.Application).ThenInclude(p => p.AgeCategory).Include(t=>t.Application.Teacher).ThenInclude(q=>q.TeacherType).Include(d => d.Grade).Include(l => l.Subnomination).ThenInclude(x => x.Nomination).Where(c => c.Application.Competition.Id == competition.Id));
+
+            
         }
 
         private void PrintDiplomas()
@@ -163,7 +153,7 @@ namespace BestApp.ViewModels.Applications
 
             List<LocalReport> reports = new List<LocalReport>();
 
-            foreach(Contest contest in Contests)
+            foreach (Contest contest in Contests)
             {
                 var diplomaVm = new DiplomaViewModel()
                 {
@@ -194,7 +184,20 @@ namespace BestApp.ViewModels.Applications
 
         private void DisplayReport(Contest contest)
         {
+            DiplomaViewModel diplomaViewModel = new DiplomaViewModel
+            {
+                Grade = contest.Grade.Name,
+                TeacherType = contest.Application.Teacher.TeacherType.Name,
+                AgeCategory = contest.Application.AgeCategory.Name,
+                City = contest.Application.City,
+                Composition = contest.Composition,
+                Subnomination = contest.Subnomination.Name,
+                ParticipantFullName = contest.Application.ParticipantFullName,
+                TeacherName = contest.Application.Teacher.FullName
+            };
 
+            ReportViewerWindow reportViewerWindow = new ReportViewerWindow(diplomaViewModel);
+            reportViewerWindow.ShowDialog();
         }
     }
 }

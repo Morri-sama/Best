@@ -21,21 +21,16 @@ namespace BestApp.Views.Reporting
     /// </summary>
     public partial class ReportViewerWindow : Window
     {
-        public ReportViewerWindow()
+        public ReportViewerWindow(DiplomaViewModel diplomaViewModel)
         {
             InitializeComponent();
 
             _reportViewer.ShowContextMenu = false;
 
-            DiplomaViewModel diplomaViewModel = new DiplomaViewModel()
+            List<DiplomaViewModel> diplomaDatas = new List<DiplomaViewModel>
             {
-                City = "Москва",
-                ParticipantFullName = "Хуесос Геннадьевич",
-                TeacherName = "Пидарас Пидарасов"
+                diplomaViewModel
             };
-
-            List<DiplomaViewModel> diplomaDatas = new List<DiplomaViewModel>();
-            diplomaDatas.Add(diplomaViewModel);
 
             ReportDataSource reportDataSource1 = new ReportDataSource();
             reportDataSource1.Name = "DataSetMain";

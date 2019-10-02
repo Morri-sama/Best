@@ -460,21 +460,21 @@
                   <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
               <TextRun>
-                <Value xml:space="preserve">
-</Value>
+                <Label>Оценка</Label>
+                <Value>=First(Fields!Grade.Value, "DataSetMain")</Value>
                 <Style>
+                  <FontStyle>Italic</FontStyle>
                   <FontFamily>Monotype Corsiva</FontFamily>
-                  <FontSize>14pt</FontSize>
+                  <FontSize>20pt</FontSize>
                   <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>Лауреата III степени</Value>
-                <Style>
-                  <FontFamily>Monotype Corsiva</FontFamily>
-                  <FontSize>38pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -646,7 +646,18 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Руководитель, хореограф: </Value>
+                <Label>Тип учителя</Label>
+                <Value>=First(Fields!TeacherType.Value, "DataSetMain")</Value>
+                <Style>
+                  <FontStyle>Normal</FontStyle>
+                  <FontFamily>Monotype Corsiva</FontFamily>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>, хореограф: </Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
                   <FontFamily>Monotype Corsiva</FontFamily>
@@ -729,10 +740,10 @@
     <Height>27.7cm</Height>
     <Style />
   </Body>
-  <Width>19.05792cm</Width>
+  <Width>19cm</Width>
   <Page>
-    <PageHeight>27.7cm</PageHeight>
-    <PageWidth>19cm</PageWidth>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
     <LeftMargin>1cm</LeftMargin>
     <RightMargin>1cm</RightMargin>
     <TopMargin>1cm</TopMargin>
@@ -777,6 +788,10 @@
           <DataField>ContestId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="Grade">
+          <DataField>Grade</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="ParticipantFullName">
           <DataField>ParticipantFullName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -791,6 +806,10 @@
         </Field>
         <Field Name="TeacherName">
           <DataField>TeacherName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TeacherType">
+          <DataField>TeacherType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

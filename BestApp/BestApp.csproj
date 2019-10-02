@@ -392,6 +392,9 @@
     <Compile Include="Views\Competitions\CompetitionsPage.xaml.cs">
       <DependentUpon>CompetitionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Grades\GradePage.xaml.cs">
+      <DependentUpon>GradePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Grades\GradesPage.xaml.cs">
       <DependentUpon>GradesPage.xaml</DependentUpon>
     </Compile>
@@ -432,6 +435,10 @@
     <Page Include="Views\Competitions\CompetitionsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Grades\GradePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Grades\GradesPage.xaml">
       <SubType>Designer</SubType>
@@ -480,7 +487,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Diploma\Diploma2.rdlc" />
     <EmbeddedResource Include="Reports\Diploma\Diploma.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BestApp.Reports.Diploma.DiplomaViewModel.datasource" />

@@ -33,6 +33,7 @@ namespace BestApp.ViewModels
             SimpleIoc.Default.Register<ApplicationsViewModel>();
 
             SimpleIoc.Default.Register<GradesViewModel>();
+            SimpleIoc.Default.Register<GradeViewModel>();
 
             SimpleIoc.Default.Register<SettingsViewModel>();
 
@@ -60,6 +61,16 @@ namespace BestApp.ViewModels
             get => SimpleIoc.Default.GetInstanceWithoutCaching<NominationViewModel>();
         }
 
+        public GradesViewModel GradesViewModel
+        {
+            get => ServiceLocator.Current.GetInstance<GradesViewModel>();
+        }
+
+        public GradeViewModel GradeViewModel
+        {
+            get => SimpleIoc.Default.GetInstanceWithoutCaching<GradeViewModel>();
+        }
+
         public ApplicationsViewModel ApplicationsViewModel
         {
             get => ServiceLocator.Current.GetInstance<ApplicationsViewModel>();
@@ -82,6 +93,7 @@ namespace BestApp.ViewModels
             navigationService.Configure("Applications", new Uri("../Views/Applications/ApplicationsPage.xaml", UriKind.Relative));
 
             navigationService.Configure("Grades", new Uri("../Views/Grades/GradesPage.xaml", UriKind.Relative));
+            navigationService.Configure("Grade", new Uri("../Views/Grades/GradePage.xaml", UriKind.Relative));
 
             navigationService.Configure("Settings", new Uri("../Views/Settings/SettingsPage.xaml", UriKind.Relative));
 

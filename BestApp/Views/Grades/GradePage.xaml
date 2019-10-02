@@ -1,0 +1,52 @@
+﻿<Page x:Class="BestApp.Views.Grades.GradePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BestApp.Views.Grades"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      d:DesignWidth="1280"
+      d:DesignHeight="720"
+      Title="Оценка"
+      DataContext="{Binding Source={StaticResource Locator}, Path=GradeViewModel}"
+      Background="gray">
+
+    <md:Card Margin="40,40"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="MaterialDesignIconButton">
+                    <md:PackIcon Kind="Music" />
+                </Button>
+                <TextBox md:HintAssist.Hint="Название оценки"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         HorizontalAlignment="Stretch"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Top"
+                         Text="{Binding Grade.Name}"
+                         Margin="10,10" />                
+            </StackPanel>
+
+            
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        FlowDirection="RightToLeft">
+                <Button Content="Сохранить"
+                        Margin="10,10"
+                        Command="{Binding SaveCommand}" />
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        Margin="10,10"
+                        Content="Назад"
+                        Command="{Binding BackCommand}" />
+            </StackPanel>
+
+        </Grid>
+    </md:Card>
+</Page>

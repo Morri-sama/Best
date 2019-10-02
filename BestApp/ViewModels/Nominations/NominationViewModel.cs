@@ -7,6 +7,7 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ using System.Windows.Input;
 
 namespace BestApp.ViewModels.Nominations
 {
-    public class NominationViewModel : ViewModelBase
+    public class NominationViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private NominationViewModel()
         {
@@ -48,15 +49,8 @@ namespace BestApp.ViewModels.Nominations
         private Nomination nomination;
         public Nomination Nomination
         {
-            get
-            {
-                return nomination;
-            }
-            set
-            {
-                nomination = value;
-                RaisePropertyChanged("Nomination");
-            }
+            get => nomination;
+            set => Notify(ref nomination, value, "Nomination");
         }
 
         public ICommand SaveCommand { get; private set; }
@@ -81,9 +75,9 @@ namespace BestApp.ViewModels.Nominations
                         this.context.Nominations.Local.Clear();
                         this.context.Attach(Nomination);
 
+                        this.context.Entry(Nomination).Collection(r => r.NominationAdditionalFields).Load();
                         this.context.Entry(Nomination).Collection(r => r.NominationAdditionalFields).Query().Include(w=>w.NominationAdditionalFieldValueOptions).Load();
                         this.context.Entry(Nomination).Collection(r => r.Subnominations).Load();
-
                     }
                     break;
             }

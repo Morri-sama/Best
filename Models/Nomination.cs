@@ -28,25 +28,14 @@ namespace Models
 
         public virtual ObservableCollection<Subnomination> Subnominations
         {
-            get
-            {
-                return subnominations;
-            }
-            set
-            {
-                Notify(ref subnominations, value, "Subnominations");
-            }
+            get => subnominations;
+            set => Notify(ref subnominations, value, "Subnominations");
         }
+
         public virtual ObservableCollection<NominationAdditionalField> NominationAdditionalFields
         {
-            get
-            {
-                return nominationAdditionalFields;
-            }
-            set
-            {
-                Notify(ref nominationAdditionalFields, value, "NominationAdditionalFields");
-            }
+            get => nominationAdditionalFields;
+            set => Notify(ref nominationAdditionalFields, value, "NominationAdditionalFields");
         }
     }
 }
