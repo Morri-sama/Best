@@ -19,6 +19,7 @@ namespace Models
         private int diplomaNumber;
         private int diplomaNumberDigits;
         private ObservableCollection<Application> applications;
+        private int lastDiplomaNumber;
         #endregion
 
         [Key]
@@ -70,8 +71,14 @@ namespace Models
             set => Notify(ref diplomaNumberDigits, value);
         }
 
+        public int LastDiplomaNumber
+        {
+            get => lastDiplomaNumber;
+            set => Notify(ref lastDiplomaNumber, value);
+        }
+
         [NotMapped]
-        public string CityDate { get => City + " " + Date.ToString("dd.MM.yyyy"); }
+        public string CityDate { get => City + " " + Date.ToString("dd.MM.yyyy") + " " + Name; }
 
         public virtual ObservableCollection<Application> Applications
         {

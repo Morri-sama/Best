@@ -41,14 +41,15 @@ namespace BestApp.ViewModels.Applications
 
             DisplayApplicationsCommand = new RelayCommand<Competition>(DisplayApplications);
             DisplayReportCommand = new RelayCommand<Contest>(DisplayReport);
+            PrintDiplomaCommand = new RelayCommand<Contest>(PrintDiploma);
             PrintDiplomasCommand = new RelayCommand(PrintDiplomas);
             SetGradeCommand = new RelayCommand<Contest>(SetGrade);
-            RefreshCommand = new RelayCommand(Refresh);
+            RefreshCommand = new RelayCommand<Competition>(Refresh);
         }
 
-        private void Refresh()
+        private void Refresh(Competition competition)
         {
-            
+            Contests = new ObservableCollection<Contest>(context.Contests.Include(b => b.Nomination).Include(a => a.Application).ThenInclude(p => p.AgeCategory).Include(t => t.Application.Teacher).ThenInclude(q => q.TeacherType).Include(d => d.Grade).Include(l => l.Subnomination).ThenInclude(x => x.Nomination).Include(w => w.Application.Competition).Where(c => c.Application.Competition.Id == competition.Id));
         }
 
         private async void SetGrade(Contest contest)
@@ -132,6 +133,7 @@ namespace BestApp.ViewModels.Applications
 
         public ICommand DisplayApplicationsCommand { get; private set; }
         public ICommand DisplayReportCommand { get; private set; }
+        public ICommand PrintDiplomaCommand { get; private set; }
         public ICommand PrintDiplomasCommand { get; private set; }
         public ICommand SetGradeCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
@@ -141,7 +143,7 @@ namespace BestApp.ViewModels.Applications
             context.Applications.Local.Clear();
             context.Applications.Where(c => c.Competition.Id == competition.Id).Load();
 
-            Contests = new ObservableCollection<Contest>(context.Contests.Include(a => a.Application).ThenInclude(p => p.AgeCategory).Include(t=>t.Application.Teacher).ThenInclude(q=>q.TeacherType).Include(d => d.Grade).Include(l => l.Subnomination).ThenInclude(x => x.Nomination).Where(c => c.Application.Competition.Id == competition.Id));
+            Contests = new ObservableCollection<Contest>(context.Contests.Include(b=>b.Nomination).Include(a => a.Application).ThenInclude(p => p.AgeCategory).Include(t=>t.Application.Teacher).ThenInclude(q=>q.TeacherType).Include(d => d.Grade).Include(l => l.Subnomination).ThenInclude(x => x.Nomination).Include(w=>w.Application.Competition).Where(c => c.Application.Competition.Id == competition.Id));
 
             
         }
@@ -184,20 +186,74 @@ namespace BestApp.ViewModels.Applications
 
         private void DisplayReport(Contest contest)
         {
-            DiplomaViewModel diplomaViewModel = new DiplomaViewModel
+            if(contest.Grade == null)
             {
-                Grade = contest.Grade.Name,
-                TeacherType = contest.Application.Teacher.TeacherType.Name,
-                AgeCategory = contest.Application.AgeCategory.Name,
-                City = contest.Application.City,
-                Composition = contest.Composition,
-                Subnomination = contest.Subnomination.Name,
-                ParticipantFullName = contest.Application.ParticipantFullName,
-                TeacherName = contest.Application.Teacher.FullName
-            };
+                return;
+            }
 
-            ReportViewerWindow reportViewerWindow = new ReportViewerWindow(diplomaViewModel);
-            reportViewerWindow.ShowDialog();
+            if(contest.DiplomaNumber == null)
+            {
+                int x = contest.Application.Competition.DiplomaNumber + contest.Application.Competition.LastDiplomaNumber;
+                contest.Application.Competition.LastDiplomaNumber++;
+                contest.DiplomaNumber = x.ToString($"D{contest.Application.Competition.DiplomaNumberDigits}");
+
+                context.Contests.Update(contest);
+                context.SaveChanges();
+            }
+
+            try
+            {
+                DiplomaViewModel diplomaViewModel = new DiplomaViewModel
+                {
+                    DiplomaNumber = contest.DiplomaNumber,
+                    Grade = contest.Grade.Name,
+                    TeacherType = contest.Application.Teacher.TeacherType.Name,
+                    AgeCategory = contest.Application.AgeCategory.Name,
+                    City = contest.Application.City,
+                    Composition = contest.Composition,
+                    Subnomination = contest.Subnomination.Name,
+                    ParticipantFullName = contest.Application.ParticipantFullName,
+                    TeacherName = contest.Application.Teacher.FullName
+                };
+
+                ReportViewerWindow reportViewerWindow = new ReportViewerWindow(diplomaViewModel);
+                reportViewerWindow.ShowDialog();
+
+                
+            }
+
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+        private void PrintDiploma(Contest contest)
+        {
+            try
+            {
+                DiplomaViewModel diplomaViewModel = new DiplomaViewModel
+                {
+                    Grade = contest.Grade.Name,
+                    TeacherType = contest.Application.Teacher.TeacherType.Name,
+                    AgeCategory = contest.Application.AgeCategory.Name,
+                    City = contest.Application.City,
+                    Composition = contest.Composition,
+                    Subnomination = contest.Subnomination.Name,
+                    ParticipantFullName = contest.Application.ParticipantFullName,
+                    TeacherName = contest.Application.Teacher.FullName
+                };
+
+                ReportViewerWindow reportViewerWindow = new ReportViewerWindow(diplomaViewModel);
+                reportViewerWindow._reportViewer.PrintDialog();
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

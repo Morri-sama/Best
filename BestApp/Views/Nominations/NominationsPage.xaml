@@ -28,47 +28,47 @@
                         Command="{Binding NewNominationCommand}" />
             </md:PopupBox>
         </StackPanel>
-    <md:Card Grid.Row="1"
-        Margin="40,40"
-             HorizontalAlignment="Stretch"
-             VerticalAlignment="Stretch">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0"
-                    Style="{StaticResource MaterialDesignIconButton}"
-                    ToolTip="MaterialDesignIconButton" />
-            <ListView Grid.Row="1"
-                      Margin="10,10"
-                      ItemsSource="{Binding Nominations}"
-                      x:Name="listView">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding OpenNominationCommand}"
-                                               CommandParameter="{Binding SelectedItem, ElementName=listView}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Name}"
-                                        Header="Название" />
-                        <GridViewColumn Header="Действия">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="Удалить"
-                                            Command="{Binding DataContext.DeleteCommand, ElementName=listView}"
-                                            CommandParameter="{Binding}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Grid>
-    </md:Card>
+        <md:Card Grid.Row="1"
+                 Margin="40,40"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="MaterialDesignIconButton" />
+                <ListView Grid.Row="1"
+                          Margin="10,10"
+                          ItemsSource="{Binding Nominations}"
+                          x:Name="listView">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenNominationCommand}"
+                                                   CommandParameter="{Binding SelectedItem, ElementName=listView}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                            Header="Название" />
+                            <GridViewColumn Header="Действия">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Удалить"
+                                                Command="{Binding DataContext.DeleteCommand, ElementName=listView}"
+                                                CommandParameter="{Binding}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </md:Card>
     </Grid>
-    
+
 </Page>

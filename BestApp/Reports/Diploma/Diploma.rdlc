@@ -453,7 +453,7 @@
               </TextRun>
               <TextRun>
                 <Label>ContestId</Label>
-                <Value>=First(Fields!ContestId.Value, "DataSetMain")</Value>
+                <Value>=First(Fields!DiplomaNumber.Value, "DataSetMain")</Value>
                 <Style>
                   <FontFamily>Monotype Corsiva</FontFamily>
                   <FontSize>14pt</FontSize>
@@ -758,7 +758,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>42587fde-e27c-4ab2-a3c9-0e6de390b357</rd:DataSourceID>
+      <rd:DataSourceID>167fe421-d1c4-4c03-9d83-c0aaecc2b85a</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -787,6 +787,10 @@
         <Field Name="ContestId">
           <DataField>ContestId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="DiplomaNumber">
+          <DataField>DiplomaNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Grade">
           <DataField>Grade</DataField>

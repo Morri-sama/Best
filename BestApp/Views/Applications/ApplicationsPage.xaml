@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:local="clr-namespace:BestApp.Views.Applications"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d"
@@ -17,58 +17,50 @@
         <CollectionViewSource Source="{Binding Contests}"
                               x:Key="contestsView">
             <CollectionViewSource.SortDescriptions>
-                <componentModel:SortDescription PropertyName="Subnomination.Nomination.Priority" />
                 <componentModel:SortDescription PropertyName="Application.AgeCategory.Priority" />
+                <componentModel:SortDescription PropertyName="Nomination.Priority" />
             </CollectionViewSource.SortDescriptions>
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Application.AgeCategory.Name" />
+                <PropertyGroupDescription PropertyName="Nomination.Name" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
+        <md:DialogHost CloseOnClickAway="True"
+                       x:Key="fwf"
+                       x:Name="sd">
 
-        <materialDesign:DialogHost CloseOnClickAway="True"
-                                   x:Key="fwf"
-                                   x:Name="sd">
-
-        </materialDesign:DialogHost>
+        </md:DialogHost>
     </Page.Resources>
-
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
         <StackPanel Grid.Row="0"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
             <Button Style="{StaticResource MaterialDesignFlatButton}"
                     Content="Обновить"
                     Command="{Binding RefreshCommand}" />
-
-
-            <materialDesign:PopupBox>
-                <Button Content="Добавить конкурс"
-                        Command="{Binding NewCompetitionCommand}" />
-            </materialDesign:PopupBox>
+            <md:PopupBox>
+                <Button Content="Печать"
+                        Command="{Binding NewCompetitionCommand}"
+                        CommandParameter="{Binding ElementName=ContestsComboBox, Path=SelectedItem}" />
+            </md:PopupBox>
         </StackPanel>
-
-
-        <materialDesign:Card Grid.Row="1"
-                             Margin="10,10"
-                             HorizontalAlignment="Stretch">
-            <materialDesign:DialogHost Identifier="RootDialog"
-                                       SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"
-                                       IsOpen="{Binding IsOpen}"
-                                       CloseOnClickAway="True">
-
+        <md:Card Grid.Row="1"
+                 Margin="40,40"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch">
+            <md:DialogHost Identifier="RootDialog"
+                           SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"
+                           IsOpen="{Binding IsOpen}"
+                           CloseOnClickAway="True">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
-
                     <ComboBox Grid.Row="0"
                               x:Name="ContestsComboBox"
                               VerticalAlignment="Top"
@@ -83,15 +75,11 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ComboBox>
-
-
                     <ListView Grid.Row="1"
                               x:Name="Grid"
-                              VerticalAlignment="Top"
-                              Margin="10,43,10,0"
+                              Margin="10,10"
                               ItemsSource="{Binding Source={StaticResource contestsView}}"
                               SelectedItem="{Binding SelectedContest}"
-                              Height="Auto"
                               VirtualizingPanel.VirtualizationMode="Recycling">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
@@ -107,10 +95,18 @@
                                                 Header="Возрастная категория" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Grade.Name}"
                                                 Header="Оценка" />
-                                <GridViewColumn DisplayMemberBinding="{Binding Subnomination.Nomination.Name}"
-                                                Header="Жанр" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Subnomination.Name}"
                                                 Header="Номинация" />
+                                <GridViewColumn DisplayMemberBinding="{Binding ApproximateTime}"
+                                                Header="Примерное время выступления" />
+                                <GridViewColumn DisplayMemberBinding="{Binding PerfomanceTime}"
+                                                Header="Примерное время начала выступления"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Composer}"
+                                                Header="Композитор" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Composition}"
+                                                Header="Композиция" />
+                                <GridViewColumn DisplayMemberBinding="{Binding PeopleAmount}"
+                                                Header="Кол-во человек" />
                                 <GridViewColumn>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -121,20 +117,37 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Печать"
+                                                    Style="{DynamicResource MaterialDesignFlatButton}"
+                                                    Command="{Binding ElementName=Grid, Path=DataContext.PrintDiplomaCommand}"
+                                                    CommandParameter="{Binding}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
-                        <!--<ListView.GroupStyle>
+                        <ListView.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.ContainerStyle>
                                     <Style TargetType="{x:Type GroupItem}">
-                                        <Setter Property="Margin" Value="0,0,0,5"/>
+                                        <Setter Property="Margin"
+                                                Value="0,0,0,5" />
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                    <Expander IsExpanded="True" Background="#FF112255" BorderBrush="#FF002255" Foreground="#FFEEEEEE" BorderThickness="1,1,1,5">
+                                                    <Expander IsExpanded="True"
+                                                              Background="#FF112255"
+                                                              BorderBrush="#FF002255"
+                                                              Foreground="#FFEEEEEE"
+                                                              BorderThickness="1,1,1,5">
                                                         <Expander.Header>
                                                             <DockPanel>
-                                                                <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" Width="100"/>
+                                                                <TextBlock FontWeight="Bold"
+                                                                           Text="{Binding Name}"
+                                                                           Margin="5,0,0,0" />
                                                             </DockPanel>
                                                         </Expander.Header>
                                                         <Expander.Content>
@@ -147,13 +160,10 @@
                                     </Style>
                                 </GroupStyle.ContainerStyle>
                             </GroupStyle>
-                        </ListView.GroupStyle>-->
+                        </ListView.GroupStyle>
                     </ListView>
-
-
                 </Grid>
-            </materialDesign:DialogHost>
-        </materialDesign:Card>
+            </md:DialogHost>
+        </md:Card>
     </Grid>
-
 </Page>

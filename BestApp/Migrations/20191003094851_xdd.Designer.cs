@@ -3,14 +3,16 @@ using System;
 using BestApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BestApp.Migrations
 {
     [DbContext(typeof(BestDbContext))]
-    partial class BestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191003094851_xdd")]
+    partial class xdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,8 +129,6 @@ namespace BestApp.Migrations
                     b.Property<int>("DiplomaNumberDigits");
 
                     b.Property<bool>("IsClosed");
-
-                    b.Property<int>("LastDiplomaNumber");
 
                     b.Property<string>("Name")
                         .IsRequired();

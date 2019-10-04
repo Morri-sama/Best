@@ -3,14 +3,16 @@ using System;
 using BestApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BestApp.Migrations
 {
     [DbContext(typeof(BestDbContext))]
-    partial class BestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191003121948_LastDiplomaNumber")]
+    partial class LastDiplomaNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

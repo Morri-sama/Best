@@ -12,6 +12,7 @@ namespace BestApp.Reports.Diploma
         public int ApplicationId { get; set; }
         public int Priority { get; set; }
         public string AgeCategory { get; set; }
+        public string DiplomaNumber { get; set; }
         public string ParticipantFullName { get; set; }
         public string Subnomination { get; set; }
         public string Composition { get; set; }
