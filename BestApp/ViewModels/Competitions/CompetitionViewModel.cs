@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,12 @@ namespace BestApp.ViewModels.Competitions
     {
         private CompetitionViewModel()
         {
-            Competition = new Competition();
+            context = new BestDbContext();
+
+            Competition = new Competition()
+            {
+                BreakTimes = new ObservableCollection<BreakTime>()
+            };
 
             SaveCommand = new RelayCommand(Save);
             BackCommand = new RelayCommand(Back);
@@ -25,32 +31,41 @@ namespace BestApp.ViewModels.Competitions
         public CompetitionViewModel(IFrameNavigationService navigator) : this()
         {
             this.navigator = navigator;
-
         }
 
         private readonly IFrameNavigationService navigator;
+        private readonly BestDbContext context;
 
-        public Competition Competition { get; set; }
+        private void AddBreakTime()
+        {
 
-        public ICommand SaveCommand { get; private set; }
-        public ICommand BackCommand { get; private set; }
-
-
+        }
 
         private void Save()
         {
-            using (var context = new BestDbContext())
-            {
-                context.Competitions.Add(Competition);
-                context.SaveChanges();
-            }
-
             navigator.GoBack();
         }
 
         private void Back()
         {
             navigator.GoBack();
+        }
+
+        public ICommand SaveCommand { get; private set; }
+        public ICommand BackCommand { get; private set; }
+
+        private Competition competition;
+        public Competition Competition
+        {
+            get => competition;
+            set
+            {
+                context.Competitions.Local.Clear();
+                context.Competitions.Attach(value);
+                context.Entry(value).Collection(b => b.BreakTimes).Load();
+
+                Notify(ref competition, value);
+            }
         }
     }
 }

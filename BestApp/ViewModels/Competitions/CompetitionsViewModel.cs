@@ -21,7 +21,7 @@ namespace BestApp.ViewModels.Competitions
         private CompetitionsViewModel()
         {
             this.context = new BestDbContext();
-            this.context.Competitions.Where(o=>o.IsClosed == false).Load();
+            this.context.Competitions.Include(o => o.BreakTimes).Where(o => o.IsClosed == false).Load();
 
             Competitions = this.context.Competitions.Local.ToObservableCollection();
 
@@ -30,33 +30,24 @@ namespace BestApp.ViewModels.Competitions
 
         public CompetitionsViewModel(IFrameNavigationService navigator) : this()
         {
-            this.navigator = navigator;          
+            this.navigator = navigator;
         }
 
         private readonly IFrameNavigationService navigator;
         private readonly BestDbContext context;
+
+        private void NewCompetition()
+        {
+            navigator.NavigateTo("Competition");
+        }
 
         public ICommand NewCompetitionCommand { get; private set; }
 
         private ObservableCollection<Competition> competitions;
         public ObservableCollection<Competition> Competitions
         {
-            get
-            {
-                return competitions;
-            }
-
-            private set
-            {
-                competitions = value;
-                RaisePropertyChanged("Competitions");
-            }
-        }
-
-
-        private void NewCompetition()
-        {
-            navigator.NavigateTo("Competition");
+            get => competitions;
+            set => Notify(ref competitions, value);
         }
     }
 }

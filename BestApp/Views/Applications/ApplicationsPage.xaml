@@ -26,11 +26,8 @@
         </CollectionViewSource>
         <md:DialogHost CloseOnClickAway="True"
                        x:Key="fwf"
-                       x:Name="sd">
-
-        </md:DialogHost>
+                       x:Name="sd" />
     </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -100,7 +97,7 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding ApproximateTime}"
                                                 Header="Примерное время выступления" />
                                 <GridViewColumn DisplayMemberBinding="{Binding PerfomanceTime}"
-                                                Header="Примерное время начала выступления"/>
+                                                Header="Примерное время начала выступления" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Composer}"
                                                 Header="Композитор" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Composition}"

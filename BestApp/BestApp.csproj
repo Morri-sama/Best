@@ -64,7 +64,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -367,6 +367,10 @@
     <Compile Include="Migrations\20191003121948_LastDiplomaNumber.cs" />
     <Compile Include="Migrations\20191003121948_LastDiplomaNumber.designer.cs">
       <DependentUpon>20191003121948_LastDiplomaNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20191204230100_BreakTime.cs" />
+    <Compile Include="Migrations\20191204230100_BreakTime.designer.cs">
+      <DependentUpon>20191204230100_BreakTime.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BestDbContextModelSnapshot.cs" />
     <Compile Include="Models\MenuItem.cs" />

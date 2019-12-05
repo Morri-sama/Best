@@ -18,8 +18,9 @@ namespace Models
         private bool isClosed;
         private int diplomaNumber;
         private int diplomaNumberDigits;
-        private ObservableCollection<Application> applications;
         private int lastDiplomaNumber;
+        private ObservableCollection<Application> applications;
+        private ObservableCollection<BreakTime> breakTimes;
         #endregion
 
         [Key]
@@ -84,6 +85,12 @@ namespace Models
         {
             get => applications;
             set => Notify(ref applications, value);
+        }
+
+        public virtual ObservableCollection<BreakTime> BreakTimes
+        {
+            get => breakTimes;
+            set => Notify(ref breakTimes, value);
         }
     }
 }

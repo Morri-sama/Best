@@ -3,68 +3,76 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:BestApp.Views"
         xmlns:vm="clr-namespace:BestApp.ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="768" 
-        Width="1024" 
+        Height="768"
+        Width="1024"
         MinWidth="512"
         TextElement.Foreground="{DynamicResource MaterialDesignPaper}"
         Background="#FFCFCFCF"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        AllowsTransparency="False" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="CanResize"
+        AllowsTransparency="False"
+        WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal"
+        ResizeMode="CanResize"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <DockPanel LastChildFill="True">
-        <Grid DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}" MouseDown="Image_MouseDown">
+        <Grid DockPanel.Dock="Top"
+              Background="{DynamicResource PrimaryHueMidBrush}"
+              MouseDown="Image_MouseDown">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition Width="48"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" 
-                   HorizontalContentAlignment="Center"                   
+            <Label Grid.Column="0"
+                   HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Foreground="White"
-                   Content="БЭСТ"/>
+                   Content="БЭСТ" />
             <Button Grid.Column="1"
                     x:Name="MenuToggleButton"
                     Click="MenuToggleButton_Click"
-                    Background="{x:Null}" 
+                    Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Width="48"
                     Height="32">
-                <materialDesign:PackIcon Kind="HamburgerMenu"/>
+                <materialDesign:PackIcon Kind="HamburgerMenu" />
             </Button>
-            <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
+            <StackPanel Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
                 <Label HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
                        Foreground="White"
-                       Content="{Binding ElementName=MainFrame, Path=Content.Title}"/>
+                       Content="{Binding ElementName=MainFrame, Path=Content.Title}" />
                 <Button x:Name="MinimizeButton"
                         Click="MinimizeButton_Click"
-                        Background="{x:Null}" 
-                        BorderBrush="{x:Null}" 
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
                         Command="{Binding }">
-                    <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    <materialDesign:PackIcon Kind="WindowMinimize" />
                 </Button>
                 <Button x:Name="MaximizeButton"
                         Click="MaximizeButton_Click"
-                        Background="{x:Null}" 
-                        BorderBrush="{x:Null}" 
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
                         Command="{Binding }">
-                    <materialDesign:PackIcon Kind="Fullscreen"/>
+                    <materialDesign:PackIcon Kind="Fullscreen" />
                 </Button>
                 <Button x:Name="CloseButton"
                         Click="CloseButton_Click"
-                        Background="{x:Null}" 
-                        BorderBrush="{x:Null}" 
+                        Background="{x:Null}"
+                        BorderBrush="{x:Null}"
                         Command="{Binding }">
-                    <materialDesign:PackIcon Kind="Close"/>
+                    <materialDesign:PackIcon Kind="Close" />
                 </Button>
             </StackPanel>
         </Grid>
@@ -77,17 +85,24 @@
             <!--<StackPanel.Background>
                 <ImageBrush ImageSource="/BestApp;component/Assets/background.jpg" Opacity="0.65"/>
             </StackPanel.Background>-->
-
             <StackPanel.Effect>
-                <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
+                <DropShadowEffect BlurRadius="20"
+                                  Color="#FFDEDEDE"
+                                  RenderingBias="Quality"
+                                  ShadowDepth="1" />
             </StackPanel.Effect>
-            <Border Height="100" HorizontalAlignment="Stretch" Background="{DynamicResource SecondaryAccentBrush}">
-                <Image Source="/BestApp;component/Assets/menuicon.jpg" MouseDown="Image_MouseDown" Stretch="UniformToFill"/>
+            <Border Height="100"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource SecondaryAccentBrush}">
+                <Image Source="/BestApp;component/Assets/menuicon.jpg"
+                       MouseDown="Image_MouseDown"
+                       Stretch="UniformToFill" />
             </Border>
             <ListView ItemsSource="{Binding MenuItems}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Background"
+                                Value="Transparent" />
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -99,22 +114,25 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Button Margin="8" Background="#FF8522BD" BorderBrush="#FF8522BD" Command="{Binding Command}">
+                        <Button Margin="8"
+                                Background="#FF8522BD"
+                                BorderBrush="#FF8522BD"
+                                Command="{Binding Command}"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                             <Grid Width="150">
-                                <materialDesign:PackIcon Kind="{Binding Icon}" VerticalAlignment="Center"/>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Name}" FontFamily="Champagne &amp; Limousines"/>
+                                <materialDesign:PackIcon Kind="{Binding Icon}"
+                                                         VerticalAlignment="Center" />
+                                <TextBlock HorizontalAlignment="Center"
+                                           Text="{Binding Name}"
+                                           FontFamily="Champagne &amp; Limousines" />
                             </Grid>
                         </Button>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-
-
         <Frame x:Name="MainFrame"
                DockPanel.Dock="Right"
-               NavigationUIVisibility="Hidden"/>
-
+               NavigationUIVisibility="Hidden" />
     </DockPanel>
-
 </Window>
