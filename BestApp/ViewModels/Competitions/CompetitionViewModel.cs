@@ -38,7 +38,7 @@ namespace BestApp.ViewModels.Competitions
 
         private void AddBreakTime()
         {
-
+            Competition.BreakTimes.Add(new BreakTime());
         }
 
         private void Save()
