@@ -13,124 +13,135 @@
         Width="1024"
         MinWidth="512"
         TextElement.Foreground="{DynamicResource MaterialDesignPaper}"
-        Background="#FFCFCFCF"
+        Background="Gainsboro"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         AllowsTransparency="False"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         WindowState="Normal"
         ResizeMode="CanResize"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    <Window.Resources>
+        <Style TargetType="TextBlock"
+               x:Key="WindowButtons">
+            <Setter Property="Opacity"
+                    Value="1" />
+        </Style>
+    </Window.Resources>
     <DockPanel LastChildFill="True">
+        <Border>
+            <Border.Background>
+                <ImageBrush ImageSource="/BestApp;component/Assets/background.jpg"
+                            Stretch="UniformToFill"
+                            Opacity="1" />
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="3"
+                                  Color="#FFDEDEDE"
+                                  RenderingBias="Quality"
+                                  ShadowDepth="3"
+                                  Opacity="0.2" />
+            </Border.Effect>
+            <StackPanel x:Name="MenuPanel"
+                        DockPanel.Dock="Left"
+                        HorizontalAlignment="Left"
+                        Width="250"
+                        Height="Auto"
+                        OpacityMask="Black"
+                        Background="Black"
+                        Opacity="0.5">
+                <Button Content="БЭСТ"
+                        Margin="8"
+                        Background="White"
+                        BorderBrush="#FF8522BD"
+                        Command="{Binding Command}"
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" />
+                <Separator />
+                <ListView ItemsSource="{Binding MenuItems}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background"
+                                    Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="8"
+                                    Background="White"
+                                    BorderBrush="#FF8522BD"
+                                    Command="{Binding Command}"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                <Grid Width="150">
+                                    <materialDesign:PackIcon Kind="{Binding Icon}"
+                                                             VerticalAlignment="Center"
+                                                             Foreground="#DDFFFFFF" />
+                                    <Border>
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Text="{Binding Name}"
+                                                   FontFamily="Champagne &amp; Limousines"
+                                                   Foreground="#DDFFFFFF" />
+                                    </Border>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Border>
         <Grid DockPanel.Dock="Top"
-              Background="{DynamicResource PrimaryHueMidBrush}"
               MouseDown="Image_MouseDown">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition Width="48"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   Foreground="White"
-                   Content="БЭСТ" />
-            <Button Grid.Column="1"
+            <Button Grid.Column="0"
                     x:Name="MenuToggleButton"
                     Click="MenuToggleButton_Click"
                     Background="{x:Null}"
                     BorderBrush="{x:Null}"
                     Width="48"
-                    Height="32">
+                    Height="32"
+                    Foreground="#DDB04242">
                 <materialDesign:PackIcon Kind="HamburgerMenu" />
             </Button>
-            <StackPanel Grid.Column="2"
+            <StackPanel Grid.Column="1"
                         HorizontalAlignment="Right"
                         Orientation="Horizontal">
-                <Label HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       Foreground="White"
-                       Content="{Binding ElementName=MainFrame, Path=Content.Title}" />
                 <Button x:Name="MinimizeButton"
                         Click="MinimizeButton_Click"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
-                        Command="{Binding }">
+                        Command="{Binding }"
+                        Foreground="#DDB04242">
                     <materialDesign:PackIcon Kind="WindowMinimize" />
                 </Button>
                 <Button x:Name="MaximizeButton"
                         Click="MaximizeButton_Click"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
-                        Command="{Binding }">
+                        Command="{Binding }"
+                        Foreground="#DDB04242">
                     <materialDesign:PackIcon Kind="Fullscreen" />
                 </Button>
                 <Button x:Name="CloseButton"
                         Click="CloseButton_Click"
                         Background="{x:Null}"
                         BorderBrush="{x:Null}"
-                        Command="{Binding }">
+                        Command="{Binding }"
+                        Foreground="#DDB04242">
                     <materialDesign:PackIcon Kind="Close" />
                 </Button>
             </StackPanel>
         </Grid>
-        <StackPanel x:Name="MenuPanel"
-                    DockPanel.Dock="Left"
-                    HorizontalAlignment="Left"
-                    Width="200"
-                    Height="Auto"
-                    Background="#FF64193F">
-            <!--<StackPanel.Background>
-                <ImageBrush ImageSource="/BestApp;component/Assets/background.jpg" Opacity="0.65"/>
-            </StackPanel.Background>-->
-            <StackPanel.Effect>
-                <DropShadowEffect BlurRadius="20"
-                                  Color="#FFDEDEDE"
-                                  RenderingBias="Quality"
-                                  ShadowDepth="1" />
-            </StackPanel.Effect>
-            <Border Height="100"
-                    HorizontalAlignment="Stretch"
-                    Background="{DynamicResource SecondaryAccentBrush}">
-                <Image Source="/BestApp;component/Assets/menuicon.jpg"
-                       MouseDown="Image_MouseDown"
-                       Stretch="UniformToFill" />
-            </Border>
-            <ListView ItemsSource="{Binding MenuItems}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background"
-                                Value="Transparent" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                    <ContentPresenter />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Button Margin="8"
-                                Background="#FF8522BD"
-                                BorderBrush="#FF8522BD"
-                                Command="{Binding Command}"
-                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                            <Grid Width="150">
-                                <materialDesign:PackIcon Kind="{Binding Icon}"
-                                                         VerticalAlignment="Center" />
-                                <TextBlock HorizontalAlignment="Center"
-                                           Text="{Binding Name}"
-                                           FontFamily="Champagne &amp; Limousines" />
-                            </Grid>
-                        </Button>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
         <Frame x:Name="MainFrame"
                DockPanel.Dock="Right"
                NavigationUIVisibility="Hidden" />
